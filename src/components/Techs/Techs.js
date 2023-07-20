@@ -4,7 +4,6 @@ function Techs() {
   return (
     <section className='tech page__tech'>
       <h2 className='tech__title'>Технологии</h2>
-      <hr className='tech__line' />
       <h2 className='tech__subtitle'>
         7 технологий
       </h2>
@@ -33,7 +32,7 @@ function Techs() {
           Express.js
         </li>
         <li className='tech__item'>
-          MongoDB
+          mongoDB
         </li>
       </ul>
     </section>

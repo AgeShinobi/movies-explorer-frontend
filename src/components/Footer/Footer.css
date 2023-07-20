@@ -7,6 +7,7 @@
 }
 
 .page__footer {
+  width: 100%;
   padding: 79px 70px 20px;
   box-sizing: border-box;
   background: #202020;
@@ -37,6 +38,7 @@
 }
 
 .footer__copyright {
+  color: #fff;
   margin: 0;
   font-size: 13px;
   font-style: normal;
@@ -44,9 +46,9 @@
   line-height: normal;
 }
 
-.footer__links {
+/* .footer__links {
   
-}
+} */
 
 .footer__link {
   text-decoration: none;
@@ -59,4 +61,10 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  transition: .5s;
+}
+
+.footer__link:hover {
+  opacity: .8;
 }

@@ -9,7 +9,6 @@ function Portfolio({
   return (
     <section className='portfolio page__portfolio'>
       <h2 className='tech__title'>Студент</h2>
-      <hr className='tech__line' />
       <section className='portfolio__resume'>
         <div className='portfolio__info'>
           <h2 className='portfolio__name'>

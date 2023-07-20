@@ -7,13 +7,17 @@
 }
 
 .page__tech {
-  height: 608px;
   padding: 100px 70px;
   box-sizing: border-box;
   background: #272727;
 }
 
 .tech__title {
+  width: 100%;
+  padding: 0 0 23px;
+  border-bottom: 1px solid #dadada ;
+
+  text-align: start;
   margin: 0;
   font-size: 22px;
   font-style: normal;
@@ -22,12 +26,12 @@
   letter-spacing: -0.88px;
 }
 
-.tech__line {
+/* .tech__line {
   margin: 23px 0 0 0;
   width: 100%;
   border: none;
   border-top: 1px solid #dadada;
-}
+} */
 
 .tech__subtitle {
   margin: 90px 0 0;
@@ -68,7 +72,6 @@
 
 .tech__item {
   margin-left: 10px;
-  margin-bottom: 10px;
   display: block;
 
   width: 90px;
@@ -87,4 +90,8 @@
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.56px;
+}
+
+.tech__item:first-of-type {
+  margin-left: 0;
 }
