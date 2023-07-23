@@ -1,0 +1,117 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-family: 'Inter', Arial, sans-serif;
+  color: #FFF;
+}
+
+.page__register {
+  width: 100%;
+  padding: 70px 442px;
+  box-sizing: border-box;
+}
+
+.register__logo {
+  width: 38px;
+  height: 38px;
+}
+
+.register__title {
+  width: 100%;
+  margin: 40px 0 0;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.register__form {
+  width: 100%;
+  margin: 40px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.register__label {
+  margin-top: 24px;
+  color: #8B8B8B;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__label:first-of-type {
+  margin: 0;
+}
+
+.register__input {
+  padding: 0 0 10px;
+  margin-top: 5px;
+  /* input */
+  background: none;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #424242;
+  /* text */
+  color: #FFF;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__input:focus {
+  border-bottom: 1px solid #4285F4;
+}
+
+.register__submit {
+  /* Position. Нужно учесть сообщение об ошибке */
+  margin-top: 152px;
+  /* Button */
+  width: 100%;
+  height: 45px;
+  padding: 0;
+  border-radius: 3px;
+  background: #4285F4;
+  border: none;
+  /* Text */
+  color: #FFF;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.register__wrapper {
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
+.register__question {
+  /* Position */
+  margin: 0;
+  /* Text */
+  color: #8B8B8B;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__link {
+  margin-left: 6px;
+  text-decoration: none;
+  color: #4285F4;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

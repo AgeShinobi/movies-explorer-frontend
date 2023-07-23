@@ -1,10 +1,12 @@
 .App {
+  min-width: 320px;
+  max-width: 100%;
+  min-height: 100vh;
+
   background-color: #202020;
-  min-height: 100%;
-  text-align: left;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  text-align: left;
 }
 

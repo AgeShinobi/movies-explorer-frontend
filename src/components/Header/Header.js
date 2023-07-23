@@ -42,8 +42,8 @@ function Header({ loggedIn }) {
             Сохранённые фильмы
           </Link>
         </div>
-        <Link to='/me' className='header__wrapper header__wrapper_account'>
-          <h3 to='/me' className="header__link_account">
+        <Link to='/profile' className='header__wrapper header__wrapper_account'>
+          <h3 className="header__link_account">
             Аккаунт
           </h3>
           <div className='header__account-icon' />

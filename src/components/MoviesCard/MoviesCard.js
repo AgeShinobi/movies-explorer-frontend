@@ -6,9 +6,7 @@ function MoviesCard({ image, name, duration }) {
   const [isLiked, setIsLiked] = useState(false)
 
   function handleCardLike() {
-    isLiked === false ?
-      setIsLiked(true) :
-      setIsLiked(false)
+    isLiked === false ? setIsLiked(true) : setIsLiked(false)
   }
 
   return (

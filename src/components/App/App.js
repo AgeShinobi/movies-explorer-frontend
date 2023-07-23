@@ -1,11 +1,15 @@
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import Login from '../Login/Login';
 
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import NotFound from '../NotFound/NotFound';
+import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
 import './App.css';
 
 // import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -19,18 +23,8 @@ const praktikumLink = 'https://practicum.yandex.ru/';
 const githubLink = 'https://github.com/AgeShinobi';
 
 function App() {
-  // const [loggedIn, setLoggedIn] = useState(false);
+  // Для проверки обоих видов Header. TODO: useState
   const loggedIn = true;
-  // const [currentUser, setCurrentUser] = useState(INITIAL_USER);
-
-  // const navigate = useNavigate();
-
-  // const cbLogout = () => {
-  //   localStorage.removeItem(JWT_KEY);
-  //   setLoggedIn(false);
-  //   setCurrentUser(INITIAL_USER);
-  //   navigate("/sign-in", { replace: true });
-  // }
 
   return (
     <div className="App">
@@ -40,7 +34,7 @@ function App() {
           path='/'
           element={
             <>
-              <Header loggedIn={loggedIn}/>
+              <Header loggedIn={loggedIn} />
               <Main
                 projectLinkStatic={projectLinkStatic}
                 projectLinkAdaptive={projectLinkAdaptive}
@@ -58,13 +52,53 @@ function App() {
           path='/movies'
           element={
             <>
-              <Header loggedIn={loggedIn}/>
+              <Header loggedIn={loggedIn} />
               <Movies />
               <Footer
                 githubLink={githubLink}
                 praktikumLink={praktikumLink}
               />
             </>
+          }
+        />
+        <Route
+          path='/saved-movies'
+          element={
+            <>
+              <Header loggedIn={loggedIn} />
+              <Movies />
+              <Footer
+                githubLink={githubLink}
+                praktikumLink={praktikumLink}
+              />
+            </>
+          }
+        />
+        <Route
+          path='/profile'
+          element={
+            <>
+              <Header loggedIn={loggedIn}/>
+              <Profile />
+            </>
+          }
+        />
+        <Route
+          path='/signup'
+          element={
+            <Register />
+          }
+        />
+        <Route
+          path='/signin'
+          element={
+            <Login />
+          }
+        />
+        <Route
+          path='/*'
+          element={
+            <NotFound />
           }
         />
       </Routes>

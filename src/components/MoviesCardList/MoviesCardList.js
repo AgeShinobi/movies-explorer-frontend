@@ -1,4 +1,5 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
+// import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
 import moviesList from '../../Movies';
@@ -14,6 +15,7 @@ function MoviesCardList () {
               image={card.image}
               name={card.nameRU}
             />
+            // <Preloader/>
           )
         })} 
     </section>
