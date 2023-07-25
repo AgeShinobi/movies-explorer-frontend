@@ -8,7 +8,7 @@ function Footer({ praktikumLink, githubLink }) {
       </h2>
       <div className='footer__row-wrapper'>
         <p className='footer__copyright'>
-          &copy; {new Date().getFullYear()}
+          &copy;{new Date().getFullYear()}
         </p>
         <div className='footer__links'>
           <a

@@ -13,6 +13,7 @@
   box-sizing: border-box;
 }
 
+
 .header__color_blue {
   background: #073042;
 }
@@ -140,4 +141,30 @@
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 1080px) {
+  .page__header {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .page__header {
+    padding: 18px 14px;
+  }
+
+  .header__link_signup {
+    font-size: 10px;
+  }
+
+  .header__link_signin {
+    margin: 0 0 0 14px;
+    width: 54px;
+    height: 26px;
+    /* Text */
+    padding: 5px 12px;
+    color: #000;
+    font-size: 10px;
+  }
 }

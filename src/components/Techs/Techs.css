@@ -15,7 +15,7 @@
 .tech__title {
   width: 100%;
   padding: 0 0 23px;
-  border-bottom: 1px solid #dadada ;
+  border-bottom: 1px solid #dadada;
 
   text-align: start;
   margin: 0;
@@ -25,13 +25,6 @@
   line-height: normal;
   letter-spacing: -0.88px;
 }
-
-/* .tech__line {
-  margin: 23px 0 0 0;
-  width: 100%;
-  border: none;
-  border-top: 1px solid #dadada;
-} */
 
 .tech__subtitle {
   margin: 90px 0 0;
@@ -60,18 +53,16 @@
 .tech__list {
   margin: 100px 0 0;
   padding: 0;
-  align-self: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
 
-.tech__list:first-child {
-  margin-left: 0;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* grid-template-rows: auto; */
+  column-gap: 10px;
+  row-gap: 10px;
 }
 
 .tech__item {
-  margin-left: 10px;
   display: block;
 
   width: 90px;
@@ -92,6 +83,74 @@
   letter-spacing: -0.56px;
 }
 
-.tech__item:first-of-type {
-  margin-left: 0;
+@media screen and (max-width: 1080px) {
+  .page__tech {
+    padding: 90px 50px;
+  }
+
+  .tech__subtitle {
+    margin: 80px 0 0;
+  }
+
+  .tech__text {
+    margin: 22px 0 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: -0.48px;
+  }
+
+  .tech__list {
+    margin: 83px 0 0;
+  }
+
+  .tech__item {
+    width: 84px;
+    height: 57px;
+    /* Text */
+    font-size: 12px;
+    letter-spacing: -0.48px;
+  }
+}
+
+@media screen and (max-width: 748px) {
+  .tech__list {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto; 
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .page__tech {
+    padding: 70px 18px;
+    background: #202020;
+  }
+
+  .tech__title {
+    padding: 0 0 28px;
+    /* text */
+    color: #FFF;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .tech__subtitle {
+    margin: 60px 0 0;
+    font-size: 30px;
+    letter-spacing: -1.2px;
+    line-height: normal;
+  }
+
+  .tech__text {
+    margin: 24px 0 0;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.44px;
+  }
+
+  .tech__list {
+    margin: 50px 0 0;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
 }

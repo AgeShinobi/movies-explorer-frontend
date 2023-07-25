@@ -1,4 +1,5 @@
 import './Portfolio.css';
+import '../Techs/Techs.css';
 
 function Portfolio({
   linkStatic,

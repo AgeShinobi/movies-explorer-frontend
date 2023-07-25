@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react'; // TODO: +useState
 import { Route, Routes } from 'react-router-dom';
 
 import Footer from '../Footer/Footer';
@@ -24,7 +24,7 @@ const githubLink = 'https://github.com/AgeShinobi';
 
 function App() {
   // Для проверки обоих видов Header. TODO: useState
-  const loggedIn = true;
+  const loggedIn = false;
 
   return (
     <div className="App">

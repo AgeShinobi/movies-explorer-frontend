@@ -4,7 +4,6 @@ function AboutProject() {
   return (
     <section className='about page__about'>
       <h2 className='about__title'>О проекте</h2>
-      <hr className='about__line' />
       <div className='about__row-wrapper'>
         <article className='about__column-wrapper'>
           <h3 className='about__subtitle'>
