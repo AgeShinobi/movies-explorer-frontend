@@ -47,7 +47,7 @@
 }
 
 .card__saved-btn {
-  background: url(../../images/saved-icon.png);
+  background: url(../../images/saved-icon.svg);
   background-size: contain;
   background-repeat: no-repeat;
   padding: 0;

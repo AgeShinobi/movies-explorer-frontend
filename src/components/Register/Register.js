@@ -4,7 +4,8 @@ import logoLink from '../../images/header-logo.svg';
 import './Register.css';
 
 function Register({ isLoggedIn, onRegister }) {
-  const [error, setError] = useState(true);
+  // TODO useState for Validation errors 
+  const error = true;
 
   const [formValue, setFormValue] = useState({
     name: '',
