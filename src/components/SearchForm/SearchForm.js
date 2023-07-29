@@ -5,12 +5,8 @@ import './SearchForm.css';
 function SearchForm() {
   const [filterStatus, setFilterStatus] = useState(false);
 
-  const changeFilterStatus = () => {
-    if (filterStatus === false) {
-      setFilterStatus(true);
-    } else {
-      setFilterStatus(false);
-    }
+  function changeFilterStatus() {
+    setFilterStatus(!filterStatus);
   }
 
   return (
@@ -36,7 +32,8 @@ function SearchForm() {
         />
         <label
           htmlFor='filterCheckbox'
-          className={`search__checkbox-label ${filterStatus ? 'search__checkbox-tube_on' : 'search__checkbox-tube_off'}`}
+          className={`search__checkbox-label 
+          ${filterStatus ? 'search__checkbox-tube_on' : 'search__checkbox-tube_off'}`}
           onClick={changeFilterStatus}
         ></label>
         <span className='search__checkbox-title'>

@@ -1,23 +1,44 @@
 import React, { useState } from 'react';
+import { useMatch } from 'react-router-dom';
 import './MoviesCard.css';
 // import cardImage from '../../images/33-words-about-design.png'
 
-function MoviesCard({ image, name, duration }) {
+function MoviesCard({ image, name, duration, ...props }) {
+  
   const [isLiked, setIsLiked] = useState(false)
-
+  
+  // Like Card
   function handleCardLike() {
     isLiked === false ? setIsLiked(true) : setIsLiked(false)
   }
+  // Удаляет карточку из SavedMovies
+  function handleRemoveCard() {
+    // setIsLiked(false);
+  }
+  
+  const isMovies = useMatch({ path: '/movies', exact: true });
 
   return (
     <article className="card">
       <div className='card__image-wrapper'>
         <img className="card__image" src={image} alt={name} />
-        {
-          !isLiked ? 
-          <button onClick={handleCardLike} className='card__save-btn'>Сохранить</button> :
-          <button onClick={handleCardLike} className='card__saved-btn'></button>
+        {isMovies &&
+          <>
+            <button
+              onClick={handleCardLike}
+              className={!isLiked ? 'card__save-btn' : 'card__saved-btn'}
+            >
+              {!isLiked ? 'Сохранить' : ''}
+            </button>
+          </>
         }
+        {!isMovies &&
+            <button
+              onClick={handleRemoveCard}
+              className='card__delete-btn'
+            />
+        }
+
       </div>
       <div className="card__wrapper">
         <h2 className="card__title">

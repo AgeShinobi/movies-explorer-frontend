@@ -9,7 +9,7 @@
 
 .page__profile {
   width: 100%;
-  padding: 70px;
+  padding: 74px 0 70px;
   box-sizing: border-box;
 }
 
@@ -66,10 +66,15 @@
   line-height: normal;
 }
 
+.profile__input_enable {
+  border: 1px solid #424242;
+  text-align: center;
+  border-radius: 4px;
+}
+
 .profile__button {
   cursor: pointer;
   padding: 0;
-  width: 410px;
   background: none;
   border: none;
   /* Text */
@@ -94,4 +99,46 @@
 .profile__button_logout {
   margin: 16px 0 0;
   color: #EE3465;
+}
+
+@media screen and (max-width: 1024px) {
+  .page__profile {
+    padding: 236px 0 269px;
+  }
+
+  .profile__data:first-of-type {
+    margin: 96px 0 0;
+  }
+
+  .profile__button_edit {
+    margin: 210px 0 0;
+  }
+}
+
+@media screen and (max-width: 524px) {
+  .page__profile {
+    padding: 70px 30px 40px;
+  }
+
+  .profile__data {
+    margin: 17px 0 0;
+    width: 260px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #424242;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .profile__data:first-of-type {
+    margin: 80px 0 0;
+  }
+
+  .profile__button {
+    font-size: 12px;
+  }
+
+  .profile__button_edit {
+    margin: 379px 0 0;
+  }
 }

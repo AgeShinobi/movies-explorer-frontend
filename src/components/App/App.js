@@ -17,8 +17,8 @@ import './App.css';
 // const INITIAL_USER = {};
 
 const projectLinkStatic = 'https://github.com/AgeShinobi/how-to-learn';
-const projectLinkAdaptive = '';
-const projectLinkApp = '';
+const projectLinkAdaptive = 'https://github.com/AgeShinobi/russian-travel';
+const projectLinkApp = 'https://github.com/AgeShinobi/react-mesto-api-full-gha';
 const praktikumLink = 'https://practicum.yandex.ru/';
 const githubLink = 'https://github.com/AgeShinobi';
 

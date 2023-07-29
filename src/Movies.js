@@ -2,7 +2,7 @@ const moviesList = [
   {
     duration: '1ч 17м',
     image: 'https://w.forfun.com/fetch/b1/b1f74a00706ac59ec75daa8ab0ac8e90.jpeg',
-    nameRU: '33 слова о дизайне'
+    nameRU: 'Gimme Danger: История Игги и The Stooges'
   },
   {
     duration: '1ч 17м',

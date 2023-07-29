@@ -83,17 +83,17 @@
 .search__checkbox-tube_on {
   background: url(../../images/checkbox-tumb.svg);
   background-position-x: center;
-    background-repeat: no-repeat;
-    background-size: inherit;
-    background-position-y: -4px;
+  background-repeat: no-repeat;
+  background-size: inherit;
+  background-position-y: -4px;
 }
 
 .search__checkbox-tube_off {
   background: url(../../images/checkbox-tumb-off.svg);
   background-position-x: center;
-    background-repeat: no-repeat;
-    background-size: inherit;
-    background-position-y: -4px;
+  background-repeat: no-repeat;
+  background-size: inherit;
+  background-position-y: -4px;
 }
 
 .search__checkbox-title {
@@ -103,5 +103,35 @@
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
-  /* 128.571% */
+}
+
+@media screen and (max-width: 1080px) {
+  .page__search {
+    padding: 80px 30px 10px;
+  }
+
+  .search__wrapper {
+    padding-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .page__search {
+    padding: 80px 14px 10px;
+  }
+
+  .search__input {
+    margin-left: 19px;
+    font-size: 11px;
+  }
+
+  .search__wrapper {
+    margin: 42px auto 0;
+    padding-bottom: 49px;
+  }
+
+  .search__checkbox-title {
+    margin: 0 0 0 12px;
+    font-size: 11px;
+  }
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Profile.css';
 
 function Profile() {
-  const userName = 'Андрей';
+  const userName = 'Виталий';
   const userEmail = 'pochta@yandex.ru';
 
   const [isDisabled, setIsDisabled] = useState(true);
@@ -40,7 +40,7 @@ function Profile() {
           name='name'
           id='input-name'
           type='text'
-          className='profile__input'
+          className={`profile__input ${!isDisabled ? 'profile__input_enable' : ''}`}
           placeholder='Имя'
           value={name}
           disabled={isDisabled}
@@ -55,7 +55,7 @@ function Profile() {
           name='email'
           id='input-email'
           type='email'
-          className='profile__input'
+          className={`profile__input ${!isDisabled ? 'profile__input_enable' : ''}`}
           placeholder='E-mail'
           value={email}
           disabled={isDisabled}
