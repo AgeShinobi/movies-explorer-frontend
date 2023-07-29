@@ -3,7 +3,7 @@ import { useMatch } from 'react-router-dom';
 import './MoviesCard.css';
 // import cardImage from '../../images/33-words-about-design.png'
 
-function MoviesCard({ image, name, duration, ...props }) {
+function MoviesCard({ image, name, duration }) {
   
   const [isLiked, setIsLiked] = useState(false)
   

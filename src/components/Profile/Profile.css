@@ -24,6 +24,13 @@
   line-height: normal;
 }
 
+.profile__form {
+  margin: 123px 0 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
 .profile__data {
   margin: 17px 0 0;
   width: 410px;
@@ -35,9 +42,8 @@
 }
 
 .profile__data:first-of-type {
-  margin: 123px 0 0;
+  margin: 0;
 }
-
 .profile__data:last-of-type {
   border-bottom: none;
   padding: 0;
@@ -106,7 +112,7 @@
     padding: 236px 0 269px;
   }
 
-  .profile__data:first-of-type {
+  .profile__form {
     margin: 96px 0 0;
   }
 
@@ -130,7 +136,7 @@
     justify-content: space-between;
   }
 
-  .profile__data:first-of-type {
+  .profile__form {
     margin: 80px 0 0;
   }
 

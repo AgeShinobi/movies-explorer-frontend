@@ -62,7 +62,6 @@ function Header({ loggedIn }) {
                 <Link
                   to='/'
                   className="header__link header__link_main"
-                  onClick={toggleMenu}
                 >
                   Главная
                 </Link>
@@ -71,7 +70,7 @@ function Header({ loggedIn }) {
                 to='/movies'
                 className={`header__link header__link_films 
                 ${isMovies ? 'header__link_selected' : ''}`}
-                onClick={toggleMenu}
+                onClick={isMenuOpen && toggleMenu}
               >
                 Фильмы
               </Link>
@@ -79,7 +78,7 @@ function Header({ loggedIn }) {
                 to='/saved-movies'
                 className={`header__link header__link_saved
                 ${isSavedMovies ? 'header__link_selected' : ''}`}
-                onClick={toggleMenu}
+                onClick={isMenuOpen && toggleMenu}
               >
                 Сохранённые фильмы
               </Link>

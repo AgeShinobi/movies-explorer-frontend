@@ -106,6 +106,11 @@
 .portfolio__link {
   text-decoration: none;
   color: #FFF;
+  transition: .5s;
+}
+
+.portfolio__link:hover {
+  opacity: .8;
 }
 
 .portfolio__project {
@@ -191,6 +196,7 @@
   .portfolio__resume {
     margin: 60px 0 0;
     flex-direction: column-reverse;
+    align-items: center;
   }
 
   .portfolio__info {
