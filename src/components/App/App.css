@@ -1,24 +1,15 @@
-.App {
+.app {
   min-width: 320px;
   max-width: 100%;
   min-height: 100vh;
+  /* При ширине дисплея больше 1280px появятся уши и контент не растянется на всю ширину */
+  padding: 0 calc((100% - 1280px)/2);
 
   background-color: #202020;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-items: center;
   text-align: left;
   position: relative;
 }
-
-/* .App::after {
-  display: none;
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  opacity: .5;
-} */

@@ -26,11 +26,11 @@
   z-index: 1;
 }
 
-.header__color_blue {
+.header_color_blue {
   background: #073042;
 }
 
-.header__color_gray {
+.header_color_gray {
   background: #202020;
 }
 
@@ -92,7 +92,7 @@
 }
 
 /* Разнесено, иначе ломается верстка на Main */
-.header__link, .header__link_main-page {
+.header__link, .header__link-main {
   cursor: pointer;
   text-decoration: none;
   font-style: normal;
@@ -101,11 +101,11 @@
   transition: .5s;
 }
 
-.header__link:hover, .header__link_main-page:hover {
+.header__link:hover, .header__link-main:hover {
   opacity: .8;
 }
 
-.header__link_signup {
+.header_link_signup {
   /* Button */
   border: none;
   background-color: transparent;
@@ -118,7 +118,7 @@
   line-height: 16px;
 }
 
-.header__link_signin {
+.header_link_signin {
   /* Button */
   margin: 0 0 0 30px;
 
@@ -137,7 +137,7 @@
   line-height: 16px;
 }
 
-.header__link_main {
+.header_link_main {
   /* Text */
   text-align: right;
   font-size: 13px;
@@ -146,7 +146,7 @@
   line-height: 18px;
 }
 
-.header__link_films {
+.header_link_films {
   margin-left: 44px;
   /* Text */
   text-align: right;
@@ -156,7 +156,7 @@
   line-height: 18px;
 }
 
-.header__link_saved {
+.header_link_saved {
   margin-left: 16px;
   text-align: right;
   font-size: 13px;
@@ -165,7 +165,7 @@
   line-height: 18px;
 }
 
-.header__link_account {
+.header_link_account {
   margin: 0;
   color: #fff;
   text-decoration: none;

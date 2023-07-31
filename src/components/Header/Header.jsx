@@ -16,7 +16,7 @@ function Header() {
   return (
     <header
       className={`header page__header 
-        ${isMain ? 'header__color_blue' : 'header__color_gray'}
+        ${isMain ? 'header_color_blue' : 'header_color_gray'}
         ${isMenuOpen ? 'header_menu_open' : ''}`}
     >
       {isMain && (
@@ -28,11 +28,11 @@ function Header() {
           <div className="header__wrapper-main">
             <Link
               to="/signup"
-              className="header__link_main-page header__link_signup"
+              className="header__link-main header_link_signup"
             >
               Регистрация
             </Link>
-            <Link to="/signin" className="header__link_main-page header__link_signin">
+            <Link to="/signin" className="header__link-main header_link_signin">
               Войти
             </Link>
           </div>
@@ -57,23 +57,23 @@ function Header() {
                 {isMenuOpen && (
                   <Link
                     to="/"
-                    className="header__link header__link_main"
+                    className="header__link header_link_main"
                   >
                     Главная
                   </Link>
                 )}
                 <Link
                   to="/movies"
-                  className={`header__link header__link_films 
-                ${isMovies ? 'header__link_selected' : ''}`}
+                  className={`header__link header_link_films 
+                ${isMovies ? 'header_link_selected' : ''}`}
                   onClick={isMenuOpen && toggleMenu}
                 >
                   Фильмы
                 </Link>
                 <Link
                   to="/saved-movies"
-                  className={`header__link header__link_saved
-                ${isSavedMovies ? 'header__link_selected' : ''}`}
+                  className={`header__link header_link_saved
+                ${isSavedMovies ? 'header_link_selected' : ''}`}
                   onClick={isMenuOpen && toggleMenu}
                 >
                   Сохранённые фильмы
@@ -85,7 +85,7 @@ function Header() {
                 className="header__wrapper-account"
                 onClick={isMenuOpen && toggleMenu}
               >
-                <h3 className="header__link_account">
+                <h3 className="header__link header_link_account">
                   Аккаунт
                 </h3>
                 <div className="header__account-icon" />
