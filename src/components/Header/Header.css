@@ -35,8 +35,14 @@
 }
 
 .header__logo {
+  background: transparent url(../../images/header-logo.svg) center no-repeat;
   width: 38px;
   height: 38px;
+  transition: .5s;
+}
+
+.header__logo:hover {
+  opacity: .8;
 }
 
 .header__wrapper-main {

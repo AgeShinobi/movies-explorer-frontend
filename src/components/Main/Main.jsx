@@ -1,18 +1,19 @@
+/* eslint-disable react/prop-types */
+import React from 'react';
 import './Main.css';
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
 import Portfolio from '../Portfolio/Portfolio';
 
-
 function Main({
   projectLinkStatic,
   projectLinkAdaptive,
   projectLinkApp,
-  githubLink
+  githubLink,
 }) {
   return (
-    <div className='main'>
+    <main className="main">
       <Promo />
       <AboutProject />
       <Techs />
@@ -22,7 +23,7 @@ function Main({
         linkApp={projectLinkApp}
         githubLink={githubLink}
       />
-    </div>
+    </main>
   );
 }
 

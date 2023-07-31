@@ -28,6 +28,8 @@
 }
 
 .search__input {
+  width: calc(100% - 111px);
+  height: 100%;
   margin-left: 22px;
   padding: 0;
   background: none;
@@ -50,6 +52,11 @@
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
+  transition: .5s;
+}
+
+.search__submit:hover {
+  opacity: .8;
 }
 
 .search__wrapper {
@@ -80,7 +87,7 @@
 
 }
 
-.search__checkbox-tube_on {
+.search_checkbox-tube_on {
   background: url(../../images/checkbox-tumb.svg);
   background-position-x: center;
   background-repeat: no-repeat;
@@ -88,7 +95,7 @@
   background-position-y: -4px;
 }
 
-.search__checkbox-tube_off {
+.search_checkbox-tube_off {
   background: url(../../images/checkbox-tumb-off.svg);
   background-position-x: center;
   background-repeat: no-repeat;

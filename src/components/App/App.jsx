@@ -22,17 +22,60 @@ const projectLinkApp = 'https://github.com/AgeShinobi/react-mesto-api-full-gha';
 const praktikumLink = 'https://practicum.yandex.ru/';
 const githubLink = 'https://github.com/AgeShinobi';
 
+// const INITIAL_USER = {};
+// const JWT_KEY = 'jwt';
+
 function App() {
-  // Для проверки обоих видов Header. TODO: useState
   const loggedIn = false;
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // const [loading, setLoading] = useState(true);
+  // const [currentUser, setCurrentUser] = useState(INITIAL_USER);
+
+  // const navigate = useNavigate();
+
+  // общий функционал cbRegister & cbLogin
+  // const cbAuth = (data) => {
+  //   if (!data || data.error || data.message) {
+  //     throw new Error('Ошибка аутентификации');
+  //   }
+  //   if (data.token) {
+  //     localStorage.setItem(JWT_KEY, data.token);
+  //     setLoggedIn(true);
+  //     navigate('/', { replace: true });
+  //   }
+  // };
+  // // Login
+  // const cbLogin = async ({ email, password }) => {
+  //   try {
+  //     const data = await auth.authorize(email, password);
+  //     cbAuth(data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+  // const cbRegister = async ({ email, password }) => {
+  //   try {
+  //     const data = await auth.register(email, password);
+  //     cbAuth(data);
+  //     navigate("/sign-in", { replace: true });
+  //   } catch (err) {
+  //     cbFailInfoPopup();
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //     cbSuccessInfoPopup();
+  //   }
+  // }
 
   return (
     <div className="App">
       {/* <CurrentUserContext.Provider value={currentUser}> */}
       <Routes>
         <Route
-          path='/'
-          element={
+          path="/"
+          element={(
             <>
               <Header loggedIn={loggedIn} />
               <Main
@@ -46,11 +89,11 @@ function App() {
                 praktikumLink={praktikumLink}
               />
             </>
-          }
+          )}
         />
         <Route
-          path='/movies'
-          element={
+          path="/movies"
+          element={(
             <>
               <Header loggedIn={loggedIn} />
               <Movies />
@@ -59,11 +102,11 @@ function App() {
                 praktikumLink={praktikumLink}
               />
             </>
-          }
+          )}
         />
         <Route
-          path='/saved-movies'
-          element={
+          path="/saved-movies"
+          element={(
             <>
               <Header loggedIn={loggedIn} />
               <Movies />
@@ -72,31 +115,35 @@ function App() {
                 praktikumLink={praktikumLink}
               />
             </>
-          }
+          )}
         />
         <Route
-          path='/profile'
-          element={
+          path="/profile"
+          element={(
             <>
-              <Header loggedIn={loggedIn}/>
+              <Header loggedIn={loggedIn} />
               <Profile />
             </>
-          }
+          )}
         />
         <Route
-          path='/signup'
-          element={
-            <Register />
-          }
+          path="/signup"
+          element={(
+            <Register
+              loggedIn={loggedIn}
+            />
+          )}
         />
         <Route
-          path='/signin'
-          element={
-            <Login />
-          }
+          path="/signin"
+          element={(
+            <Login
+              loggedIn={loggedIn}
+            />
+          )}
         />
         <Route
-          path='/*'
+          path="/*"
           element={
             <NotFound />
           }

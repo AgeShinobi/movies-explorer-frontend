@@ -85,7 +85,7 @@
 }
 
 .register__submit {
-  /* Position. Нужно учесть сообщение об ошибке */
+  /* Position */
   margin-top: 152px;
   /* Button */
   width: 100%;
@@ -94,6 +94,7 @@
   border-radius: 3px;
   background: #4285F4;
   border: none;
+  transition: .5s;
   /* Text */
   color: #FFF;
   text-align: center;
@@ -101,6 +102,15 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.register__submit_type_enabled {
+  cursor: pointer;
+  background: #3ddc84;
+}
+
+.register__submit_type_enabled:hover {
+  opacity: .8;
 }
 
 .register__wrapper {
@@ -131,6 +141,11 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: .5s;
+}
+
+.register__link:hover {
+  opacity: .8;
 }
 
 .register__input-error {

@@ -1,3 +1,4 @@
+import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 // import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
@@ -14,24 +15,21 @@ function MoviesCardList() {
     numElements = 8; // Take 8 elements for medium screens
   } else {
     numElements = 12; // Take 12 elements for large screens
-    console.log(displayWidth);
   }
 
   return (
-    <section className='cards page__cards'>
-      {moviesList.slice(0, numElements).map((card) => {
-        return (
-          <MoviesCard
-            key={card._id}
-            duration={card.duration}
-            image={card.image}
-            name={card.nameRU}
-          />
-          // <Preloader/>
-        )
-      })}
+    <section className="cards page__cards">
+      {moviesList.slice(0, numElements).map((card) => (
+        <MoviesCard
+          key={card._id}
+          duration={card.duration}
+          image={card.image}
+          name={card.nameRU}
+        />
+        // <Preloader/>
+      ))}
     </section>
-  )
+  );
 }
 
 export default MoviesCardList;
