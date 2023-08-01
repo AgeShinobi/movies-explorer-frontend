@@ -1,0 +1,254 @@
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.page__portfolio {
+  padding: 110px 70px 125px;
+  box-sizing: border-box;
+  background: #202020;
+}
+
+.portfolio__resume {
+  margin: 66px 0 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.portfolio__info {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.portfolio__name {
+  margin: 0;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+}
+
+.portfolio__job {
+  margin: 18px 0 0;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.portfolio__about {
+  margin: 26px 0 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.portfolio__github {
+  margin: 99px 0 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.portfolio__image {
+  width: 270px;
+  height: 327px;
+
+  background-image: url('../../images/portfolio-initial-avatar.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.portfolio__title {
+  margin: 100px 0 0;
+  color: #8B8B8B;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.portfolio__list {
+  width: 100%;
+  margin: 50px 0 0;
+  padding: 0;
+}
+
+.portfolio__item {
+  margin-top: 20px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #424242;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.portfolio__item:first-of-type {
+  margin: 0;
+}
+
+.portfolio__item:last-of-type {
+  border: none;
+  padding: 0;
+}
+
+.portfolio__link {
+  text-decoration: none;
+  color: #FFF;
+  transition: .5s;
+}
+
+.portfolio__link:hover {
+  opacity: .8;
+}
+
+.portfolio__project {
+  margin: 0;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -1.2px;
+}
+
+.portfolio__arrow {
+  margin: 0;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -1.2px;
+}
+
+@media screen and (max-width: 1080px) {
+  .page__portfolio {
+    padding: 90px 50px;
+  }
+
+  .portfolio__info {
+    max-width: 364px;
+  }
+
+  .portfolio__image {
+    max-width: 255px;
+    max-height: 307px;
+  }
+
+  .portfolio__name {
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+  }
+
+  .portfolio__job {
+    margin: 16px 0 0;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .portfolio__about {
+    margin: 20px 0 0;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .portfolio__github {
+    margin: 87px 0 0;
+  }
+
+  .portfolio__title {
+    margin: 91px 0 0;
+    color: #A0A0A0;
+  }
+
+  .portfolio__item {
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .portfolio__project {
+    font-size: 28px;
+    letter-spacing: -1.12px;
+  }
+
+  .portfolio__arrow {
+    font-size: 28px;
+    letter-spacing: -1.12px;
+  }
+
+}
+
+@media screen and (max-width: 760px) {
+  .page__portfolio {
+    padding: 70px 14px;
+  }
+
+  .portfolio__resume {
+    margin: 60px 0 0;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .portfolio__info {
+    margin: 40px 0 0;
+    max-width: 364px;
+  }
+
+  .portfolio__image {
+    min-width: 292px;
+    min-height: 352px;
+  }
+
+  .portfolio__name {
+    font-size: 30px;
+    line-height: normal;
+    letter-spacing: -1.2px;
+  }
+
+  .portfolio__job {
+    margin: 20px 0 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .portfolio__about {
+    margin: 20px 0 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .portfolio__github {
+    margin: 40px 0 0;
+  }
+
+  .portfolio__title {
+    margin: 70px 0 0;
+    font-size: 14px;
+  }
+
+  .portfolio__project {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+  }
+
+  .portfolio__arrow {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+  }
+
+  .portfolio__list {
+    margin: 40px 0 0;
+  }
+
+}

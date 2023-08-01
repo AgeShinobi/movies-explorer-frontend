@@ -1,0 +1,150 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: 'Inter', Arial, sans-serif;
+  color: #FFF;
+}
+
+.page__profile {
+  width: 100%;
+  padding: 74px 0 70px;
+  box-sizing: border-box;
+}
+
+.profile__greetings {
+  margin: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile__form {
+  margin: 123px 0 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__data {
+  margin: 17px 0 0;
+  width: 410px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #424242;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.profile__data:first-of-type {
+  margin: 0;
+}
+.profile__data:last-of-type {
+  border-bottom: none;
+  padding: 0;
+}
+
+.profile__label {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile__input {
+  padding: 0;
+  width: 50%;
+  border: none;
+  background: none;
+  outline: none;
+  text-align: right;
+  /* text */
+  color: #FFF;
+  text-align: right;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.profile__input_enable {
+  border: 1px solid #424242;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.profile__button {
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  border: none;
+  /* Text */
+  color: #FFF;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* Animation */
+  transition: .5s;
+}
+
+.profile__button:hover {
+  opacity: .5;
+}
+
+.profile__button_edit {
+  margin: 222px 0 0;
+}
+
+.profile__button_logout {
+  margin: 16px 0 0;
+  color: #EE3465;
+}
+
+@media screen and (max-width: 1024px) {
+  .page__profile {
+    padding: 236px 0 269px;
+  }
+
+  .profile__form {
+    margin: 96px 0 0;
+  }
+
+  .profile__button_edit {
+    margin: 210px 0 0;
+  }
+}
+
+@media screen and (max-width: 524px) {
+  .page__profile {
+    padding: 70px 30px 40px;
+  }
+
+  .profile__data {
+    margin: 17px 0 0;
+    width: 260px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #424242;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .profile__form {
+    margin: 80px 0 0;
+  }
+
+  .profile__button {
+    font-size: 12px;
+  }
+
+  .profile__button_edit {
+    margin: 379px 0 0;
+  }
+}

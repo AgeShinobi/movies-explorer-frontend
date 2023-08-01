@@ -1,0 +1,170 @@
+.card {
+  position: relative;
+  max-width: 360px;
+  width: 100%;
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: 201px;
+  background: #424242;
+  object-fit: cover;
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.card__save-btn {
+  opacity: 0;
+  /* Button */
+  background: #313131;
+  border-radius: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 72px;
+  height: 21px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: .5s;
+
+  /* Position */
+  padding: 0;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  /* Text */
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 9px;
+}
+
+.card__saved-btn {
+  background: url(../../images/saved-icon.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 0;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  border: none;
+}
+
+.card__delete-btn {
+  opacity: 0;
+  background: transparent url(../../images/delete-card-button.svg) center no-repeat;
+  background-size: contain;
+  padding: 0;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  border: none;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.card__image-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.card__image-wrapper:hover .card__save-btn {
+  opacity: 1;
+}
+
+.card__image-wrapper:hover .card__delete-btn {
+  opacity: 1;
+}
+
+.card__wrapper {
+  margin: 14px 14px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card__title {
+  margin: 0;
+  max-width: 250px;
+  color: #FFF;
+  /* font-family: Inter; */
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.card__duration {
+  /* Background */
+  display: block;
+  width: 52px;
+  height: 18px;
+  border-radius: 3px;
+  background: #2F2F2F;
+
+  /* Text */
+  color: #8B8B8B;
+  text-align: center;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 10px;
+  padding: 3px 4px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1095px) {
+  .card {
+    max-width: 339px;
+  }
+
+  .card__title {
+    font-size: 12px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .card__wrapper {
+    margin: 25px 0 0;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .card {
+    max-width: 300px;
+  }
+
+  .card__title {
+    font-size: 12px;
+    max-width: 240px;
+  }
+
+  .card__wrapper {
+    margin: 16px 0 0;
+  }
+
+  .card__save-btn {
+    opacity: 1;
+  }
+
+  .card__saved-btn {
+    opacity: 1;
+  }
+
+  .card__delete-btn {
+    opacity: 1;
+  }
+}

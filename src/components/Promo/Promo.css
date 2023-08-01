@@ -1,0 +1,131 @@
+.promo {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.page__promo {
+  padding: 75px 70px;
+  box-sizing: border-box;
+  background: #073042;
+}
+
+.promo__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.promo__main-text {
+  margin: 0;
+  max-width: 640px;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px;
+}
+
+.promo__text {
+  margin: 36px 0 0 0;
+  max-width: 310px;
+  color: #FFF;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  opacity: 0.5;
+}
+
+.promo__link {
+  cursor: pointer;
+  /* Button */
+  margin: 146px 0 0 0;
+  padding: 0;
+  width: 129px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid #FFF;
+  border-radius: 3px;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 9px;
+
+  /* Text */
+  text-decoration: none;
+  color: #FFF;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+
+  /* Animation */
+  transition: .5s;
+}
+
+.promo__link:hover {
+  opacity: .8;
+}
+
+.promo__image {
+  max-width: 310px;
+}
+
+@media screen and (max-width: 1080px) {
+  .promo {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+
+  .page__promo {
+    padding: 140px 44px 76px;
+  }
+
+  .promo__main-text {
+    margin-top: 48px;
+    font-size: 40px;
+    font-style: normal;
+    line-height: 50px;
+  }
+
+  .promo__text {
+    margin: 22px 0 0;
+    max-width: 260px;
+    align-self: center;
+  }
+
+  .promo__link {
+    margin: 92px 0 0;
+    align-self: center;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .page__promo {
+    padding: 70px 10px 30px;
+  }
+
+  .promo__image {
+    max-width: 210px;
+  }
+
+  .promo__main-text {
+    margin-top: 44px;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -1.2px;
+  }
+
+  .promo__text {
+    margin: 24px 0 0;
+  }
+
+  .promo__link {
+    margin: 80px 0 0;
+  }
+
+}
