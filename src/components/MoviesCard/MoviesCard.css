@@ -19,6 +19,7 @@
 .card__save-btn {
   opacity: 0;
   /* Button */
+  cursor: pointer;
   background: #313131;
   border-radius: 10px;
   background-size: contain;
@@ -27,7 +28,6 @@
   height: 21px;
   border: none;
   outline: none;
-  cursor: pointer;
   transition: .5s;
 
   /* Position */
@@ -47,6 +47,7 @@
 }
 
 .card__saved-btn {
+  cursor: pointer;
   background: url(../../images/saved-icon.svg);
   background-size: contain;
   background-repeat: no-repeat;

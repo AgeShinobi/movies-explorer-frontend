@@ -9,15 +9,17 @@ function MoviesCard({
   name,
   duration,
 }) {
+  // Для написания длительности фильма в формате '##ч ##м'
+  const hours = Math.floor(duration / 60);
+  const minutes = duration - (hours * 60);
+  const formatedDuration = `${hours}ч ${minutes}м`;
+
   const [isLiked, setIsLiked] = useState(false);
   // Like Card
   function handleCardLike() {
     setIsLiked(!isLiked);
   }
-  // Удаляет карточку из SavedMovies
-  function handleRemoveCard() {
-    // setIsLiked(false);
-  }
+
   const isMovies = useMatch({ path: '/movies', exact: true });
 
   return (
@@ -34,15 +36,6 @@ function MoviesCard({
             {!isLiked ? 'Сохранить' : ''}
           </button>
         )}
-        {!isMovies && (
-          <button
-            type="button"
-            onClick={handleRemoveCard}
-            className="card__delete-btn"
-            aria-label="Удалить фильм"
-          />
-        )}
-
       </div>
       <div className="card__wrapper">
         <h2 className="card__title">
@@ -51,7 +44,7 @@ function MoviesCard({
         <time
           className="card__duration"
         >
-          {duration}
+          {formatedDuration}
         </time>
       </div>
     </article>

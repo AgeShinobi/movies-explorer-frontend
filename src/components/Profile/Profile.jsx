@@ -1,19 +1,25 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Profile.css';
 
-function Profile() {
-  const userName = 'Виталий';
-  const userEmail = 'pochta@yandex.ru';
-
+function Profile({ onLogout }) {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [name, setName] = useState(userName);
-  const [email, setEmail] = useState(userEmail);
+
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
 
   function handleEdit() {
     setIsDisabled(!isDisabled);
   }
-
   function handleChangeName(e) {
     setName(e.target.value);
   }
@@ -96,6 +102,7 @@ function Profile() {
       <button
         className="profile__button profile__button_logout"
         type="button"
+        onClick={onLogout}
       >
         Выйти из аккаунта
       </button>

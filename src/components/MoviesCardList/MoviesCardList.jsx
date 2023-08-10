@@ -1,29 +1,34 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 // import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
+import { MOVIES_IMAGE_URL } from '../../config';
 
-import moviesList from '../../Movies';
+// eslint-disable-next-line react/prop-types
+function MoviesCardList({
+  filterStatus,
+  searchedMovies,
+  numCards,
+  searchedShortMovies,
+}) {
+  const [movieCards, setMovieCards] = useState(searchedMovies);
 
-function MoviesCardList() {
-  const displayWidth = window.innerWidth; // Get the display width
-
-  let numElements;
-  if (displayWidth <= 680) {
-    numElements = 5; // Take 5 elements for small screens
-  } else if (displayWidth <= 1080) {
-    numElements = 8; // Take 8 elements for medium screens
-  } else {
-    numElements = 12; // Take 12 elements for large screens
-  }
+  useEffect(() => {
+    if (filterStatus) {
+      setMovieCards(searchedShortMovies);
+    } else {
+      setMovieCards(searchedMovies);
+    }
+  });
 
   return (
     <section className="cards page__cards">
-      {moviesList.slice(0, numElements).map((card) => (
+      {movieCards.slice(0, numCards).map((card) => (
         <MoviesCard
-          key={card._id}
+          key={card.id}
           duration={card.duration}
-          image={card.image}
+          image={`${MOVIES_IMAGE_URL}${card.image.url}`}
           name={card.nameRU}
         />
         // <Preloader/>

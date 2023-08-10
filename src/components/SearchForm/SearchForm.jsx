@@ -1,28 +1,44 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import './SearchForm.css';
-// import searchButton from '../../images/search-button.svg'
 
-function SearchForm() {
-  // Стейт чекбокса "Короткометражки"
-  const [filterStatus, setFilterStatus] = useState(false);
-
-  // Переключатель чекбокса "Короткометражки"
-  function changeFilterStatus() {
-    setFilterStatus(!filterStatus);
-  }
+function SearchForm({
+  onSearch,
+  filterStatus,
+  onFilter,
+  searchValue,
+  onChangeSearchValue,
+}) {
+  // Submit поисковой строки
+  const handleSubmit = useCallback(async (e) => {
+    try {
+      e.preventDefault();
+      onSearch(searchValue);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
+  }, [onSearch, searchValue]);
 
   return (
     <section className="search page__search">
-      <form id="searchForm" className="search__form">
+      <form
+        id="searchForm"
+        className="search__form"
+        onSubmit={handleSubmit}
+      >
         <input
           className="search__input"
           name="search"
           id="searchInput"
           type="search"
           placeholder="Фильм"
+          value={searchValue}
+          onChange={onChangeSearchValue}
         />
         <button
           type="submit"
@@ -40,7 +56,7 @@ function SearchForm() {
           htmlFor="filterCheckbox"
           className={`search__checkbox-label 
           ${filterStatus ? 'search_checkbox-tube_on' : 'search_checkbox-tube_off'}`}
-          onClick={changeFilterStatus}
+          onClick={onFilter}
         />
         <span className="search__checkbox-title">
           Короткометражки
