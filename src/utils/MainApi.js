@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable quote-props */
-const BASE_URL = 'https://api.movie.ageshinobi.nomoreparties.sbs';
+import { BASE_URL } from '../config';
 
 // Общий функционал для формирования запроса
 function makeRequest(url, method, body, token) {
@@ -73,15 +73,21 @@ export const checkToken = (token) => {
   return makeRequest('/users/me', 'GET', undefined, token);
 };
 
-// Requests with JWT in localStorage
+// --------------Requests WITH JWT in localStorage ---------------
+
+// Получаем информацию о пользователе
 export const getUserInfo = () => {
   return makeAuthorizedRequest('/users/me', 'GET');
 };
-
+// Получаем список сохраненных фильмов
 export const getSavedMovies = () => {
   return makeAuthorizedRequest('/movies', 'GET');
 };
-// Параметры запроса для добавления видео в сохраненные
+// Добавляем фильм в список сохраненных
 export const addMovie = (movie) => {
   return makeAuthorizedRequest('/movies', 'POST', movie);
+};
+// Удаляем фильм из списка сохраненных
+export const deleteMovie = (movieId) => {
+  return makeAuthorizedRequest(`/movies/${movieId}`, 'DELETE', undefined);
 };

@@ -14,6 +14,24 @@
   justify-items: center;
 }
 
+.cards_not-found {
+  display: block;
+}
+
+.cards__text {
+  margin: 0;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  text-align: center;
+  color: #8B8B8B;
+}
+
+.cards__not-found .cards {
+  display: block;
+}
+
 @media screen and (max-width: 1080px) {
   .page__cards {
     padding: 70px 30px 12px;
@@ -28,5 +46,8 @@
     padding: 40px 10px 13px;
     grid-template-columns: 1fr;
     row-gap: 47px;
+  }
+  .cards__text {
+    font-size: 26px;
   }
 }

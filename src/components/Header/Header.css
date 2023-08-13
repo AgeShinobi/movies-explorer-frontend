@@ -91,6 +91,10 @@
   opacity: .8;
 }
 
+.header__link_selected {
+  font-weight: 500;
+}
+
 /* Разнесено, иначе ломается верстка на Main */
 .header__link, .header__link-main {
   cursor: pointer;
@@ -175,9 +179,9 @@
   line-height: 12px;
 }
 
-.header__link_selected {
+/* .header__link_selected {
   font-weight: 500;
-}
+} */
 
 .header__account-icon {
   margin-left: 7px;

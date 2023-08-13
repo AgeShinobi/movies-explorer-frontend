@@ -15,6 +15,9 @@ function Movies({
   onFilter,
   searchValue,
   onChangeSearchValue,
+  loading,
+  onSaveMovie,
+  onDeleteMovie,
 }) {
   // На сохраненных фильмах кнопка "Ещё" не используется
   const isMovies = useMatch({ path: '/movies', exact: true });
@@ -66,8 +69,13 @@ function Movies({
         searchedMovies={searchedMovies}
         searchedShortMovies={searchedShortMovies}
         numCards={numCards}
+        loading={loading}
+        onSaveMovie={onSaveMovie}
+        onDeleteMovie={onDeleteMovie}
       />
-      {isMovies && <ShowMoreButton onShowMore={handleLoadMore} />}
+      {isMovies
+      && searchedMovies.length > numCards
+      && <ShowMoreButton onShowMore={handleLoadMore} />}
     </main>
   );
 }

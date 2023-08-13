@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-// import Preloader from '../Preloader/Preloader';
+import NotFoundMovies from '../NotFoundMovies/NotFoundMovies';
+import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 import { MOVIES_IMAGE_URL } from '../../config';
 
@@ -9,8 +10,11 @@ import { MOVIES_IMAGE_URL } from '../../config';
 function MoviesCardList({
   filterStatus,
   searchedMovies,
-  numCards,
   searchedShortMovies,
+  numCards,
+  loading,
+  onSaveMovie,
+  onDeleteMovie,
 }) {
   const [movieCards, setMovieCards] = useState(searchedMovies);
 
@@ -23,16 +27,23 @@ function MoviesCardList({
   });
 
   return (
-    <section className="cards page__cards">
-      {movieCards.slice(0, numCards).map((card) => (
-        <MoviesCard
-          key={card.id}
-          duration={card.duration}
-          image={`${MOVIES_IMAGE_URL}${card.image.url}`}
-          name={card.nameRU}
-        />
-        // <Preloader/>
-      ))}
+    <section className={`cards page__cards ${movieCards.length === 0 && 'cards_not-found'}`}>
+      {movieCards.length === 0 && <NotFoundMovies />}
+      {loading
+        ? <Preloader />
+        : (
+          movieCards.slice(0, numCards).map((card) => (
+            <MoviesCard
+              movie={card}
+              key={card.id}
+              image={`${MOVIES_IMAGE_URL}${card.image.url}`}
+              name={card.nameRU}
+              duration={card.duration}
+              onSaveMovie={onSaveMovie}
+              onDeleteMovie={onDeleteMovie}
+            />
+          ))
+        )}
     </section>
   );
 }

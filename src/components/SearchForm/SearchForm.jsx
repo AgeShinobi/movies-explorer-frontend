@@ -42,8 +42,9 @@ function SearchForm({
         />
         <button
           type="submit"
-          className="search__submit"
+          className={`search__submit ${searchValue !== '' && 'search_submit_enable'}`}
           aria-label="Найти"
+          disabled={searchValue === '' && true}
         />
       </form>
       <div className="search__wrapper">

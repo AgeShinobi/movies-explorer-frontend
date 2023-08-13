@@ -5,9 +5,12 @@ import './MoviesCard.css';
 // import cardImage from '../../images/33-words-about-design.png'
 
 function MoviesCard({
+  movie,
   image,
   name,
   duration,
+  onSaveMovie,
+  onDeleteMovie,
 }) {
   // Для написания длительности фильма в формате '##ч ##м'
   const hours = Math.floor(duration / 60);
@@ -17,6 +20,12 @@ function MoviesCard({
   const [isLiked, setIsLiked] = useState(false);
   // Like Card
   function handleCardLike() {
+    if (!isLiked) {
+      console.log('movie =====>', movie);
+      onSaveMovie(movie);
+    } else {
+      onDeleteMovie(movie.id);
+    }
     setIsLiked(!isLiked);
   }
 

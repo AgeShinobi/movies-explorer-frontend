@@ -51,11 +51,14 @@
   background: url(../../images/search-button.svg);
   background-repeat: no-repeat;
   border: none;
+}
+
+.search_submit_enable {
   cursor: pointer;
   transition: .5s;
 }
 
-.search__submit:hover {
+.search_submit_enable:hover {
   opacity: .8;
 }
 

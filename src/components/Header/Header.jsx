@@ -64,8 +64,7 @@ function Header({ loggedIn }) {
               )}
               <Link
                 to="/movies"
-                className={`header__link header_link_films 
-                ${isMovies ? 'header_link_selected' : ''}`}
+                className={`header__link header_link_films ${isMovies ? 'header_link_selected' : ''}`}
                 onClick={isMenuOpen && toggleMenu}
               >
                 Фильмы
