@@ -4,7 +4,6 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import NotFoundMovies from '../NotFoundMovies/NotFoundMovies';
 import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
-import { MOVIES_IMAGE_URL } from '../../config';
 
 // eslint-disable-next-line react/prop-types
 function MoviesCardList({
@@ -35,10 +34,7 @@ function MoviesCardList({
           movieCards.slice(0, numCards).map((card) => (
             <MoviesCard
               movie={card}
-              key={card.id}
-              image={`${MOVIES_IMAGE_URL}${card.image.url}`}
-              name={card.nameRU}
-              duration={card.duration}
+              key={card.movieId}
               onSaveMovie={onSaveMovie}
               onDeleteMovie={onDeleteMovie}
             />

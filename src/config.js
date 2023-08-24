@@ -9,12 +9,17 @@ const MOVIES = 'movies';
 const SEARCH_TITLE = 'searchTitle';
 const SEARCHED_MOVIES = 'searchedMovies';
 const SEARCHED_SHORT_MOVIES = 'searchedShortMovies';
+const SAVED_MOVIES = 'savedMovies';
 const FILTER_STATUS = 'filterStatus';
 
 // Regex
 const LINK_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/im;
 const NAME_EN_REGEX = /^[A-Za-z0-9\s\d\W]+$/im;
 const NAME_RU_REGEX = /^[А-Яа-яёЁ\s\d\W]+$/im;
+
+// Popup Messages
+const REGISTER_SUCCES = 'Регистрация выполнена успешно';
+const LOGIN_SUCCES = 'Вход выполнен успешно';
 
 module.exports = {
   BASE_URL,
@@ -24,10 +29,13 @@ module.exports = {
   SEARCH_TITLE,
   SEARCHED_MOVIES,
   SEARCHED_SHORT_MOVIES,
+  SAVED_MOVIES,
   FILTER_STATUS,
   JWT_KEY,
   MOVIES,
   LINK_REGEX,
   NAME_EN_REGEX,
   NAME_RU_REGEX,
+  REGISTER_SUCCES,
+  LOGIN_SUCCES,
 };

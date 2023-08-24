@@ -10,6 +10,7 @@ import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
+import InfoPopup from '../InfoPopup/InfoPopup';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import './App.css';
@@ -27,6 +28,9 @@ import {
   FILTER_STATUS,
   JWT_KEY,
   MOVIES,
+  SAVED_MOVIES,
+  // REGISTER_SUCCES,
+  LOGIN_SUCCES,
 } from '../../config';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
@@ -48,20 +52,40 @@ function App() {
   const [filterStatus, setFilterStatus] = useState(false);
   // Список короткометражек
   const [searchedShortMovies, setSearchedShortMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  // Работа попапа с сообщением об успехе/ошибке
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const [isErrorMessage, setIsErrorMessage] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
 
   const navigate = useNavigate();
 
-  // REGISTER, LOGIN, LOGOUT ------------------------------------->
+  // Функция вызова попапа
+  const showInfoPopup = (text, err) => {
+    setPopupMessage(text);
+    setIsErrorMessage(err); // Boolean
+    setPopupIsOpen(true);
 
+    const timer = setTimeout(() => {
+      setPopupIsOpen(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  };
+
+  // REGISTER, LOGIN, LOGOUT ------------------------------------->
   // общий функционал cbRegister & cbLogin
   const cbAuth = (data) => {
     if (!data || data.error || data.message) {
+      showInfoPopup(data.error, true);
       throw new Error('Ошибка аутентификации');
     }
     if (data.token) {
+      showInfoPopup(LOGIN_SUCCES, false);
       localStorage.setItem(JWT_KEY, data.token);
       setLoggedIn(true);
+      showInfoPopup(LOGIN_SUCCES, false);
       navigate('/movies', { replace: true });
     }
   };
@@ -73,6 +97,7 @@ function App() {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
+      showInfoPopup('Что-то пошло не так', true);
     } finally {
       setLoading(false);
     }
@@ -82,8 +107,10 @@ function App() {
     try {
       const data = await mainApi.register(name, email, password);
       cbAuth(data);
+      showInfoPopup('Вы успешно зарегистрироовались!', false);
       navigate('/signin', { replace: true });
     } catch (err) {
+      showInfoPopup(err, true);
       // eslint-disable-next-line no-console
       console.error(err);
     } finally {
@@ -98,6 +125,7 @@ function App() {
     localStorage.removeItem(SEARCHED_MOVIES);
     localStorage.removeItem(SEARCHED_SHORT_MOVIES);
     localStorage.removeItem(FILTER_STATUS);
+    localStorage.removeItem(SAVED_MOVIES);
     setLoggedIn(false);
     setCurrentUser(INITIAL_USER);
     navigate('/', { replace: true });
@@ -143,6 +171,7 @@ function App() {
       localStorage.setItem(SEARCHED_MOVIES, JSON.stringify(movies));
       localStorage.setItem(SEARCHED_SHORT_MOVIES, JSON.stringify(shortMovies));
     } catch (err) {
+      showInfoPopup(err, true);
       // eslint-disable-next-line no-console
       console.log(err);
     } finally {
@@ -160,24 +189,12 @@ function App() {
   // Save movie
   const cbSaveMovie = async (movie) => {
     try {
-      // Добавляем фильм в БД
-      const movieCard = {
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: MOVIES_IMAGE_URL + movie.image.url,
-        trailerLink: movie.trailerLink,
-        thumbnail: MOVIES_IMAGE_URL + movie.image.url,
-        movieId: movie.id,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-      };
-      await mainApi.addMovie(movieCard);
+      const savedMovie = await mainApi.addMovie(movie);
+      const updatedSavedMovies = [...savedMovies, savedMovie.data];
+      setSavedMovies(updatedSavedMovies);
+      localStorage.setItem(SAVED_MOVIES, JSON.stringify(updatedSavedMovies));
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      showInfoPopup(err, true);
     }
   };
   // Delete movie
@@ -196,12 +213,29 @@ function App() {
       Promise.all([mainApi.getUserInfo(), moviesApi.getMovies()])
         .then(([userData, movies]) => {
           setCurrentUser(userData);
+          // Преобразуем элементы массива в соответствии в моделью API
+          const moviesArray = movies.map((movie) => {
+            const movieCard = {
+              country: movie.country,
+              director: movie.director,
+              duration: movie.duration,
+              year: movie.year,
+              description: movie.description,
+              image: MOVIES_IMAGE_URL + movie.image.url,
+              trailerLink: movie.trailerLink,
+              thumbnail: MOVIES_IMAGE_URL + movie.image.url,
+              movieId: movie.id,
+              nameRU: movie.nameRU,
+              nameEN: movie.nameEN,
+            };
+            return movieCard;
+          });
           // Каждая карточка проверяется на валидность
-          const validatedMovies = movies.filter((movie) => validateMovieCard(movie));
+          const validatedMovies = moviesArray.filter((movie) => validateMovieCard(movie));
           localStorage.setItem(MOVIES, JSON.stringify(validatedMovies));
         })
         // eslint-disable-next-line no-console
-        .catch((err) => console.log(err));
+        .catch((err) => showInfoPopup(err, true));
     }
   }, [loggedIn]);
 
@@ -277,6 +311,7 @@ function App() {
                   loggedIn={loggedIn}
                   filterStatus={filterStatus}
                   onFilter={changeFilterStatus}
+                  savedMovies={savedMovies}
                 />
                 <Footer
                   githubLink={githubLink}
@@ -323,6 +358,11 @@ function App() {
             }
           />
         </Routes>
+        <InfoPopup
+          popupIsOpen={popupIsOpen}
+          isError={isErrorMessage}
+          popupMessage={popupMessage}
+        />
       </CurrentUserContext.Provider>
     </div>
   );

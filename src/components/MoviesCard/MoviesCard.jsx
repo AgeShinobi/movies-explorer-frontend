@@ -6,27 +6,29 @@ import './MoviesCard.css';
 
 function MoviesCard({
   movie,
-  image,
-  name,
-  duration,
   onSaveMovie,
   onDeleteMovie,
 }) {
   // Для написания длительности фильма в формате '##ч ##м'
-  const hours = Math.floor(duration / 60);
-  const minutes = duration - (hours * 60);
+  const hours = Math.floor(movie.duration / 60);
+  const minutes = movie.duration - (hours * 60);
   const formatedDuration = `${hours}ч ${minutes}м`;
 
   const [isLiked, setIsLiked] = useState(false);
   // Like Card
   function handleCardLike() {
-    if (!isLiked) {
-      console.log('movie =====>', movie);
-      onSaveMovie(movie);
-    } else {
-      onDeleteMovie(movie.id);
+    try {
+      if (!isLiked) {
+        onSaveMovie(movie);
+        setIsLiked(!isLiked);
+      } else {
+        onDeleteMovie(movie._id);
+        setIsLiked(!isLiked);
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
     }
-    setIsLiked(!isLiked);
   }
 
   const isMovies = useMatch({ path: '/movies', exact: true });
@@ -34,7 +36,7 @@ function MoviesCard({
   return (
     <article className="card">
       <div className="card__image-wrapper">
-        <img className="card__image" src={image} alt={name} />
+        <img className="card__image" src={movie.image} alt={movie.nameRU} />
         {isMovies && (
           <button
             type="button"
@@ -48,7 +50,7 @@ function MoviesCard({
       </div>
       <div className="card__wrapper">
         <h2 className="card__title">
-          {name}
+          {movie.nameRU}
         </h2>
         <time
           className="card__duration"
