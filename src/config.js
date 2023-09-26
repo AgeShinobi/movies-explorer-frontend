@@ -10,7 +10,9 @@ const SEARCH_TITLE = 'searchTitle';
 const SEARCHED_MOVIES = 'searchedMovies';
 const SEARCHED_SHORT_MOVIES = 'searchedShortMovies';
 const SAVED_MOVIES = 'savedMovies';
+const SAVED_MOVIES_SHORT = 'savedMoviesShort';
 const FILTER_STATUS = 'filterStatus';
+const FILTER_STATUS_SAVED = 'filterStatusSaved';
 
 // Regex
 const LINK_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/im;
@@ -30,7 +32,9 @@ module.exports = {
   SEARCHED_MOVIES,
   SEARCHED_SHORT_MOVIES,
   SAVED_MOVIES,
+  SAVED_MOVIES_SHORT,
   FILTER_STATUS,
+  FILTER_STATUS_SAVED,
   JWT_KEY,
   MOVIES,
   LINK_REGEX,

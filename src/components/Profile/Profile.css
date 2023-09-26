@@ -98,6 +98,15 @@
   opacity: .5;
 }
 
+.profile__button_disabled {
+  color: #696969;
+  cursor: default;
+}
+
+.profile__button_disabled:hover {
+ opacity: 1;
+}
+
 .profile__button_edit {
   margin: 222px 0 0;
 }

@@ -40,8 +40,6 @@ function makeAuthorizedRequest(url, method, body) {
     'Authorization': `Bearer ${localStorage.jwt}`,
   };
 
-  // headers.authorization = `Bearer ${localStorage.jwt}`;
-
   const config = {
     method,
     headers,
@@ -78,6 +76,10 @@ export const checkToken = (token) => {
 // Получаем информацию о пользователе
 export const getUserInfo = () => {
   return makeAuthorizedRequest('/users/me', 'GET');
+};
+// Изменяем информацию о пользователе
+export const changeUserInfo = (name, email) => {
+  return makeAuthorizedRequest('/users/me', 'PATCH', { name, email });
 };
 // Получаем список сохраненных фильмов
 export const getSavedMovies = () => {

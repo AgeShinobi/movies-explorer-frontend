@@ -3,11 +3,9 @@
 import React, { useCallback } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import './Register.css';
-// import CurrentUserContext from '../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../hooks/useForm';
 
 function Register({ loggedIn, onRegister }) {
-  // const currentUser = React.useContext(CurrentUserContext);
   const {
     values, errors, handleChange, resetForm, isValid,
   } = useFormWithValidation();

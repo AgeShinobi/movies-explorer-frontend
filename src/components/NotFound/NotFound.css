@@ -30,6 +30,10 @@
 }
 
 .not-found__link {
+  border: none;
+  background: none;
+  cursor: pointer;
+
   margin: 184px 0 0;
   /* Text */
   color: #4285F4;
@@ -39,6 +43,11 @@
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
+  transition: .5s;
+}
+
+.not-found__link:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 1024px) {
@@ -53,7 +62,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+
     font-family: 'Inter', Arial, sans-serif;
     color: #fff;
   }
@@ -72,4 +81,3 @@
     font-size: 12px;
   }
 }
-

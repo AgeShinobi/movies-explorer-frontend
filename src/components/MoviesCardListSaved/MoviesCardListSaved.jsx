@@ -4,36 +4,44 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import NotFoundMovies from '../NotFoundMovies/NotFoundMovies';
 
 import { getSavedMovieCard } from '../../utils/SearchMovies';
-import './MoviesCardList.css';
+import '../MoviesCardList/MoviesCardList.css';
 
 function MoviesCardList({
   filterStatus,
-  searchedMovies,
-  searchedShortMovies,
-  numCards,
-  onSaveMovie,
-  onDeleteMovie,
   savedMovies,
-  firstOpen,
+  savedMoviesShort,
+  searchedSavedMovies,
+  searchedShortSavedMovies,
+  numCards,
+  onDeleteMovie,
+  isSearchedSave,
 }) {
-  const [movieCards, setMovieCards] = useState(searchedMovies);
+  const [movieCards, setMovieCards] = useState(savedMovies);
 
   useEffect(() => {
-    if (!filterStatus) {
-      setMovieCards(searchedMovies);
+    if (!isSearchedSave) {
+      if (!filterStatus) {
+        setMovieCards(savedMovies);
+      } else {
+        setMovieCards(savedMoviesShort);
+      }
+    } else if (!filterStatus) {
+      setMovieCards(searchedSavedMovies);
     } else {
-      setMovieCards(searchedShortMovies);
+      setMovieCards(searchedShortSavedMovies);
     }
-  }, [filterStatus, setMovieCards, searchedMovies, searchedShortMovies]);
+  }, [
+    filterStatus, setMovieCards, savedMovies,
+    savedMoviesShort, searchedSavedMovies, searchedShortSavedMovies,
+  ]);
 
   return (
     <section className={`cards page__cards ${movieCards.length === 0 && 'cards_not-found'}`}>
-      {movieCards.length === 0 && !firstOpen && <NotFoundMovies />}
+      {movieCards.length === 0 && <NotFoundMovies />}
       {movieCards.slice(0, numCards).map((card) => (
         <MoviesCard
           movie={card}
           key={card.movieId}
-          onSaveMovie={onSaveMovie}
           onDeleteMovie={onDeleteMovie}
           saved={getSavedMovieCard(savedMovies, card)}
         />

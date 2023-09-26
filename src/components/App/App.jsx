@@ -1,24 +1,33 @@
-import React, { useCallback, useState, useEffect } from 'react'; // TODO: +useState
+import React, {
+  useCallback, useState, useEffect,
+} from 'react';
 import {
-  Route, Routes, useNavigate,
+  Route, Routes, useLocation, useNavigate, useMatch,
 } from 'react-router-dom';
 
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
-
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 import InfoPopup from '../InfoPopup/InfoPopup';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import Preloader from '../Preloader/Preloader';
+
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 
 import * as mainApi from '../../utils/MainApi';
 import * as moviesApi from '../../utils/MoviesApi';
 import validateMovieCard from '../../utils/MoviesValidator';
-import { searchValidator, searchMovies, searchShortMovies } from '../../utils/SearchMovies';
+import {
+  searchValidator, searchMovies,
+  searchShortMovies, searchSavedMovies,
+} from '../../utils/SearchMovies';
+
 import {
   MOVIES_IMAGE_URL,
   INITIAL_USER,
@@ -29,12 +38,9 @@ import {
   JWT_KEY,
   MOVIES,
   SAVED_MOVIES,
-  // REGISTER_SUCCES,
   LOGIN_SUCCES,
+  SAVED_MOVIES_SHORT,
 } from '../../config';
-
-import CurrentUserContext from '../../contexts/CurrentUserContext';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 const projectLinkStatic = 'https://github.com/AgeShinobi/how-to-learn';
 const projectLinkAdaptive = 'https://github.com/AgeShinobi/russian-travel';
@@ -43,25 +49,35 @@ const praktikumLink = 'https://practicum.yandex.ru/';
 const githubLink = 'https://github.com/AgeShinobi';
 
 function App() {
+  const location = useLocation();
+  const isMovies = useMatch({ path: '/movies', exact: true });
   const [currentUser, setCurrentUser] = useState(INITIAL_USER);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMoviesShort, setSavedMoviesShort] = useState([]);
+  // Найденные фильмы
   const [searchedMovies, setSearchedMovies] = useState([]);
-  // Стейт поисковой строки
+  const [searchedShortMovies, setSearchedShortMovies] = useState([]);
+  // Найденные сохраненные фильмы
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
+  const [searchedSavedShortMovies, setSearchedSavedShortMovies] = useState([]);
+  // Текст поисковой строки
   const [searchValue, setSearchValue] = useState('');
+  const [searchValueInSaved, setSearchValueInSaved] = useState('');
   // фильтр короткометражек
   const [filterStatus, setFilterStatus] = useState(false);
-  // Список короткометражек
-  const [searchedShortMovies, setSearchedShortMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [filterStatusSaved, setFilterStatusSaved] = useState(false);
   // Работа попапа с сообщением об успехе/ошибке
   const [popupIsOpen, setPopupIsOpen] = useState(false);
   const [isErrorMessage, setIsErrorMessage] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
+  // Работа лоадера
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
-  // Функция вызова попапа
+  // Функция вызова попапа с сообщением
   const showInfoPopup = (text, err) => {
     setPopupMessage(text);
     setIsErrorMessage(err); // Boolean
@@ -75,14 +91,13 @@ function App() {
   };
 
   // REGISTER, LOGIN, LOGOUT ------------------------------------->
+
   // общий функционал cbRegister & cbLogin
   const cbAuth = (data) => {
     if (!data || data.error || data.message) {
-      showInfoPopup(data.error, true);
       throw new Error('Ошибка аутентификации');
     }
     if (data.token) {
-      showInfoPopup(LOGIN_SUCCES, false);
       localStorage.setItem(JWT_KEY, data.token);
       setLoggedIn(true);
       showInfoPopup(LOGIN_SUCCES, false);
@@ -92,11 +107,11 @@ function App() {
   // Login
   const cbLogin = async ({ email, password }) => {
     try {
+      setLoading(true);
       const data = await mainApi.authorize(email, password);
       cbAuth(data);
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.error(err);
       showInfoPopup('Что-то пошло не так', true);
     } finally {
       setLoading(false);
@@ -105,14 +120,13 @@ function App() {
   // Register
   const cbRegister = async ({ name, email, password }) => {
     try {
+      setLoading(true);
       const data = await mainApi.register(name, email, password);
       cbAuth(data);
       showInfoPopup('Вы успешно зарегистрироовались!', false);
       navigate('/signin', { replace: true });
     } catch (err) {
-      showInfoPopup(err, true);
-      // eslint-disable-next-line no-console
-      console.error(err);
+      showInfoPopup(err.message, true);
     } finally {
       setLoading(false);
     }
@@ -126,13 +140,22 @@ function App() {
     localStorage.removeItem(SEARCHED_SHORT_MOVIES);
     localStorage.removeItem(FILTER_STATUS);
     localStorage.removeItem(SAVED_MOVIES);
+    localStorage.removeItem(SAVED_MOVIES_SHORT);
+    // States to default values
     setLoggedIn(false);
     setCurrentUser(INITIAL_USER);
+    setSearchValue('');
+    setSearchValueInSaved('');
+    setSearchedMovies([]);
+    setSearchedShortMovies([]);
+    setSavedMovies([]);
+    // Navigate to main page
     navigate('/', { replace: true });
   };
   // Check Token
   const cbTokenCheck = useCallback(async () => {
     try {
+      const path = location.pathname;
       const jwt = localStorage.getItem(JWT_KEY);
       if (!jwt) {
         throw new Error('no token');
@@ -144,23 +167,27 @@ function App() {
       }
       setLoggedIn(true);
       setCurrentUser(user);
+      navigate(path, { replace: true });
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
     } finally {
       setLoading(false);
     }
-  }, [setLoggedIn, setCurrentUser, navigate]);
+  }, [setLoggedIn, setCurrentUser]);
 
   // SEARCH ------------------------------------------------------>
+
   // Change Search Value
   const handleChangeSearchValue = (e) => {
     setSearchValue(e.target.value);
   };
+  const handleChangeSearchValueInSaved = (e) => {
+    setSearchValueInSaved(e.target.value);
+  };
   // Search Movies
   const cbSearchMovies = async (title) => {
     try {
-      setLoading(true);
       searchValidator(title);
       const movies = searchMovies(title);
       const shortMovies = searchShortMovies(movies);
@@ -171,35 +198,135 @@ function App() {
       localStorage.setItem(SEARCHED_MOVIES, JSON.stringify(movies));
       localStorage.setItem(SEARCHED_SHORT_MOVIES, JSON.stringify(shortMovies));
     } catch (err) {
-      showInfoPopup(err, true);
-      // eslint-disable-next-line no-console
-      console.log(err);
-    } finally {
-      setLoading(false);
+      showInfoPopup(err.message, true);
+    }
+  };
+  // Search SAVED Movies
+  const cbSearchSavedMovies = async (title) => {
+    try {
+      searchValidator(title);
+      const movies = searchSavedMovies(title);
+      const shortMovies = searchShortMovies(movies);
+      setSearchedSavedMovies(movies);
+      setSearchedSavedShortMovies(shortMovies);
+    } catch (err) {
+      showInfoPopup(err.message, true);
     }
   };
   // Checkbox status
   const changeFilterStatus = () => {
-    const newFilterStatus = !filterStatus;
-    setFilterStatus(newFilterStatus);
-    localStorage.setItem(FILTER_STATUS, newFilterStatus);
+    if (isMovies) {
+      const newFilterStatus = !filterStatus;
+      setFilterStatus(newFilterStatus);
+      localStorage.setItem(FILTER_STATUS, newFilterStatus);
+    } else {
+      const newFilterStatus = !filterStatusSaved;
+      setFilterStatusSaved(newFilterStatus);
+    }
   };
   // SAVE & DELETE MOVIE ---------------------------------------------->
 
   // Save movie
   const cbSaveMovie = async (movie) => {
     try {
+      setLoading(true);
       const savedMovie = await mainApi.addMovie(movie);
       const updatedSavedMovies = [...savedMovies, savedMovie.data];
+      const updatedShortSavedMovies = searchShortMovies(updatedSavedMovies);
       setSavedMovies(updatedSavedMovies);
+      setSavedMoviesShort(updatedShortSavedMovies);
       localStorage.setItem(SAVED_MOVIES, JSON.stringify(updatedSavedMovies));
+      showInfoPopup('Фильм успешно сохранен', false);
     } catch (err) {
-      showInfoPopup(err, true);
+      showInfoPopup(err.message, true);
+    } finally {
+      setLoading(false);
     }
   };
   // Delete movie
-  const cbDeleteMovie = async (movieId) => {
-    await mainApi.deleteMovie(movieId);
+  // eslint-disable-next-line consistent-return
+  const cbDeleteMovie = async (movie) => {
+    try {
+      const userId = currentUser._id;
+      let savedMovieId = movie._id;
+      let savedMovieOwner = movie.owner;
+
+      if (!movie._id) {
+        // Карточки в /movies не имеют поля _id, ищем в сохраненных
+        savedMovies.forEach((film) => {
+          if (movie.movieId === film.movieId) {
+            // Записываем _id
+            savedMovieId = film._id;
+            savedMovieOwner = film.owner;
+          }
+          return film;
+        });
+        if (savedMovieOwner !== userId) {
+          throw new Error('Ошибка удаления карточки');
+        }
+      }
+      await mainApi.deleteMovie(savedMovieId);
+      const updatedSavedMovies = savedMovies.filter((film) => film._id !== savedMovieId);
+      const updatedShortSavedMovies = searchShortMovies(updatedSavedMovies);
+      setSavedMovies(updatedSavedMovies);
+      setSavedMoviesShort(updatedShortSavedMovies);
+      localStorage.setItem(SAVED_MOVIES, JSON.stringify(updatedSavedMovies));
+      showInfoPopup('Фильм успешно удален', false);
+    } catch (err) {
+      showInfoPopup(err.message, true);
+    }
+  };
+
+  const cbDeleteMovieSaved = async (movie) => {
+    try {
+      const userId = currentUser._id;
+      const savedMovieId = movie._id;
+      const savedMovieOwner = movie.owner;
+
+      if (savedMovieOwner !== userId) {
+        throw new Error('Ошибка удаления карточки');
+      }
+
+      await mainApi.deleteMovie(savedMovieId);
+
+      // Обновленный список сохраненных фильмов
+      const updatedSavedMovies = savedMovies
+        .filter((film) => film._id !== savedMovieId);
+      const updatedShortSavedMovies = savedMoviesShort
+        .filter((film) => film._id !== savedMovieId);
+      // Для обновления стейтов найденных фильмов в разделе сохраненных
+      const updatedSearchedSavedMovies = searchedSavedMovies
+        .filter((film) => film._id !== savedMovieId);
+      const updatedSearchedShortSavedMovies = searchedSavedShortMovies
+        .filter((film) => film._id !== savedMovieId);
+
+      setSavedMovies(updatedSavedMovies);
+      setSavedMoviesShort(updatedShortSavedMovies);
+      setSearchedSavedMovies(updatedSearchedSavedMovies);
+      setSearchedSavedShortMovies(updatedSearchedShortSavedMovies);
+
+      localStorage.setItem(SAVED_MOVIES, JSON.stringify(updatedSavedMovies));
+      localStorage.setItem(SAVED_MOVIES_SHORT, JSON.stringify(updatedSavedMovies));
+
+      showInfoPopup('Фильм успешно удален', false);
+    } catch (err) {
+      showInfoPopup(err.message, true);
+    }
+  };
+
+  // CHANGE USER INFO ------------------------------------------------->
+
+  const cbChangeUserInfo = async (name, email) => {
+    try {
+      setLoading(true);
+      const newUserData = await mainApi.changeUserInfo(name, email);
+      setCurrentUser(newUserData.user);
+      showInfoPopup('Информация обновлена успешно', false);
+    } catch (err) {
+      showInfoPopup(err.message, true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // USE EFFECTS ------------------------------------------------------>
@@ -210,9 +337,12 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([mainApi.getUserInfo(), moviesApi.getMovies()])
-        .then(([userData, movies]) => {
+      setLoading(true);
+      Promise.all([mainApi.getUserInfo(), moviesApi.getMovies(), mainApi.getSavedMovies()])
+        .then(([userData, movies, savedFilms]) => {
           setCurrentUser(userData);
+          setSavedMovies(savedFilms.data);
+          setSavedMoviesShort(searchShortMovies(savedFilms.data));
           // Преобразуем элементы массива в соответствии в моделью API
           const moviesArray = movies.map((movie) => {
             const movieCard = {
@@ -233,9 +363,10 @@ function App() {
           // Каждая карточка проверяется на валидность
           const validatedMovies = moviesArray.filter((movie) => validateMovieCard(movie));
           localStorage.setItem(MOVIES, JSON.stringify(validatedMovies));
+          setLoading(false);
         })
         // eslint-disable-next-line no-console
-        .catch((err) => showInfoPopup(err, true));
+        .catch((err) => console.log(err));
     }
   }, [loggedIn]);
 
@@ -244,12 +375,22 @@ function App() {
     if (localStorage.filterStatus) {
       setFilterStatus(JSON.parse(localStorage.filterStatus));
     }
+    if (localStorage.filterStatusSaved) {
+      setFilterStatusSaved(JSON.parse(localStorage.filterStatusSaved));
+    }
     if (localStorage.searchTitle
       && localStorage.searchedMovies
       && localStorage.searchedShortMovies) {
       setSearchValue(JSON.parse(localStorage.searchTitle));
       setSearchedMovies(JSON.parse(localStorage.searchedMovies));
       setSearchedShortMovies(JSON.parse(localStorage.searchedShortMovies));
+    }
+    if (localStorage.searchTitleSaved
+      && localStorage.searchedMoviesSaved
+      && localStorage.searchedShortMoviesSaved) {
+      setSearchValueInSaved(JSON.parse(localStorage.searchTitleSaved));
+      setSearchedSavedMovies(JSON.parse(localStorage.searchedMoviesSaved));
+      setSearchedSavedShortMovies(JSON.parse(localStorage.searchedShortMoviesSaved));
     }
   }, []);
 
@@ -290,9 +431,10 @@ function App() {
                   onFilter={changeFilterStatus}
                   searchValue={searchValue}
                   onChangeSearchValue={handleChangeSearchValue}
-                  loading={loading}
                   onSaveMovie={cbSaveMovie}
                   onDeleteMovie={cbDeleteMovie}
+                  savedMovies={savedMovies}
+                  savedMoviesShort={savedMoviesShort}
                 />
                 <Footer
                   githubLink={githubLink}
@@ -309,9 +451,16 @@ function App() {
                 <ProtectedRoute
                   element={Movies}
                   loggedIn={loggedIn}
-                  filterStatus={filterStatus}
+                  onSearch={cbSearchSavedMovies}
+                  searchedMovies={searchedSavedMovies}
+                  searchedShortMovies={searchedSavedShortMovies}
+                  filterStatus={filterStatusSaved}
                   onFilter={changeFilterStatus}
+                  searchValue={searchValueInSaved}
+                  onChangeSearchValue={handleChangeSearchValueInSaved}
+                  onDeleteMovie={cbDeleteMovieSaved}
                   savedMovies={savedMovies}
+                  savedMoviesShort={savedMoviesShort}
                 />
                 <Footer
                   githubLink={githubLink}
@@ -329,6 +478,7 @@ function App() {
                   element={Profile}
                   loggedIn={loggedIn}
                   onLogout={cbLogout}
+                  onChangeUserInfo={cbChangeUserInfo}
                 />
               </>
             )}
@@ -363,6 +513,7 @@ function App() {
           isError={isErrorMessage}
           popupMessage={popupMessage}
         />
+        {loading && <Preloader />}
       </CurrentUserContext.Provider>
     </div>
   );
