@@ -42,11 +42,15 @@ function Profile({ onLogout, onChangeUserInfo }) {
     }
   }, [name, email]);
 
-  const handleSubmit = useCallback((e) => {
-    // Запрещаем браузеру переходить по адресу формы
-    e.preventDefault();
-    onChangeUserInfo(name, email);
-    handleEdit();
+  const handleSubmit = useCallback(async (e) => {
+    try {
+      e.preventDefault();
+      await onChangeUserInfo(name, email);
+      handleEdit();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
   }, [name, email]);
 
   return (

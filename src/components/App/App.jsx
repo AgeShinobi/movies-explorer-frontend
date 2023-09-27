@@ -287,7 +287,11 @@ function App() {
       localStorage.setItem(SAVED_MOVIES, JSON.stringify(updatedSavedMovies));
       showInfoPopup('Фильм успешно удален', false);
     } catch (err) {
-      showInfoPopup(err.message, true);
+      if (err.message) {
+        showInfoPopup(err.message, true);
+      } else {
+        showInfoPopup(err, true);
+      }
       throw err;
     }
   };
@@ -325,7 +329,11 @@ function App() {
 
       showInfoPopup('Фильм успешно удален', false);
     } catch (err) {
-      showInfoPopup(err.message, true);
+      if (err.message) {
+        showInfoPopup(err.message, true);
+      } else {
+        showInfoPopup(err, true);
+      }
     }
   };
 
@@ -338,7 +346,12 @@ function App() {
       setCurrentUser(newUserData.user);
       showInfoPopup('Информация обновлена успешно', false);
     } catch (err) {
-      showInfoPopup(err.message, true);
+      if (err.message) {
+        showInfoPopup(err.message, true);
+      } else {
+        showInfoPopup(err, true);
+      }
+      throw err;
     } finally {
       setLoading(false);
     }
