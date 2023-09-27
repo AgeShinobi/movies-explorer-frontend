@@ -18,6 +18,7 @@ const FILTER_STATUS_SAVED = 'filterStatusSaved';
 const LINK_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/im;
 const NAME_EN_REGEX = /^[A-Za-z0-9\s\d\W]+$/im;
 const NAME_RU_REGEX = /^[А-Яа-яёЁ\s\d\W]+$/im;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/im;
 
 // Popup Messages
 const REGISTER_SUCCES = 'Регистрация выполнена успешно';
@@ -40,6 +41,7 @@ module.exports = {
   LINK_REGEX,
   NAME_EN_REGEX,
   NAME_RU_REGEX,
+  EMAIL_REGEX,
   REGISTER_SUCCES,
   LOGIN_SUCCES,
 };

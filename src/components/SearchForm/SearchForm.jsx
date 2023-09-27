@@ -21,7 +21,7 @@ function SearchForm({
   const handleSubmit = useCallback(async (e) => {
     try {
       e.preventDefault();
-      onSearch(searchValue);
+      await onSearch(searchValue);
       if (firstOpen === true) {
         changeFirstOpen(false);
       }

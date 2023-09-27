@@ -13,7 +13,7 @@ function Register({ loggedIn, onRegister }) {
   const handleSubmit = useCallback(async (e) => {
     try {
       e.preventDefault();
-      onRegister(values);
+      await onRegister(values);
       resetForm();
     } catch (err) {
       // eslint-disable-next-line no-console

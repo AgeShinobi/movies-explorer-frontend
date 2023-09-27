@@ -40,6 +40,7 @@ import {
   SAVED_MOVIES,
   LOGIN_SUCCES,
   SAVED_MOVIES_SHORT,
+  EMAIL_REGEX,
 } from '../../config';
 
 const projectLinkStatic = 'https://github.com/AgeShinobi/how-to-learn';
@@ -112,7 +113,9 @@ function App() {
       cbAuth(data);
     } catch (err) {
       // eslint-disable-next-line no-console
-      showInfoPopup('Что-то пошло не так', true);
+      console.log(err);
+      showInfoPopup(err, true);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -121,12 +124,21 @@ function App() {
   const cbRegister = async ({ name, email, password }) => {
     try {
       setLoading(true);
+      if (!(EMAIL_REGEX.test(email))) {
+        throw new Error('Введите корректный email');
+      }
       const data = await mainApi.register(name, email, password);
       cbAuth(data);
       showInfoPopup('Вы успешно зарегистрироовались!', false);
-      navigate('/signin', { replace: true });
+      // navigate('/signin', { replace: true });
+      cbLogin({ email, password });
     } catch (err) {
-      showInfoPopup(err.message, true);
+      if (err.message) {
+        showInfoPopup(err.message, true);
+      } else {
+        showInfoPopup(err, true);
+      }
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -211,6 +223,7 @@ function App() {
       setSearchedSavedShortMovies(shortMovies);
     } catch (err) {
       showInfoPopup(err.message, true);
+      throw err;
     }
   };
   // Checkbox status
@@ -239,6 +252,7 @@ function App() {
       showInfoPopup('Фильм успешно сохранен', false);
     } catch (err) {
       showInfoPopup(err.message, true);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -274,6 +288,7 @@ function App() {
       showInfoPopup('Фильм успешно удален', false);
     } catch (err) {
       showInfoPopup(err.message, true);
+      throw err;
     }
   };
 
@@ -363,6 +378,7 @@ function App() {
           // Каждая карточка проверяется на валидность
           const validatedMovies = moviesArray.filter((movie) => validateMovieCard(movie));
           localStorage.setItem(MOVIES, JSON.stringify(validatedMovies));
+          localStorage.setItem(SAVED_MOVIES, JSON.stringify(savedFilms.data));
           setLoading(false);
         })
         // eslint-disable-next-line no-console
@@ -375,9 +391,6 @@ function App() {
     if (localStorage.filterStatus) {
       setFilterStatus(JSON.parse(localStorage.filterStatus));
     }
-    if (localStorage.filterStatusSaved) {
-      setFilterStatusSaved(JSON.parse(localStorage.filterStatusSaved));
-    }
     if (localStorage.searchTitle
       && localStorage.searchedMovies
       && localStorage.searchedShortMovies) {
@@ -385,14 +398,14 @@ function App() {
       setSearchedMovies(JSON.parse(localStorage.searchedMovies));
       setSearchedShortMovies(JSON.parse(localStorage.searchedShortMovies));
     }
-    if (localStorage.searchTitleSaved
-      && localStorage.searchedMoviesSaved
-      && localStorage.searchedShortMoviesSaved) {
-      setSearchValueInSaved(JSON.parse(localStorage.searchTitleSaved));
-      setSearchedSavedMovies(JSON.parse(localStorage.searchedMoviesSaved));
-      setSearchedSavedShortMovies(JSON.parse(localStorage.searchedShortMoviesSaved));
-    }
   }, []);
+  // Приводит значения стейтов к дефолтным при обновлении страницы
+  useEffect(() => {
+    setFilterStatusSaved(false);
+    setSearchedSavedMovies([]);
+    setSearchedSavedShortMovies([]);
+    setSearchValueInSaved('');
+  }, [location]);
 
   return (
     <div className="app">

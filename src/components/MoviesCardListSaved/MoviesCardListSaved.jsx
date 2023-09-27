@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import NotFoundMovies from '../NotFoundMovies/NotFoundMovies';
 
@@ -16,7 +17,12 @@ function MoviesCardList({
   onDeleteMovie,
   isSearchedSave,
 }) {
+  const location = useLocation();
   const [movieCards, setMovieCards] = useState(savedMovies);
+
+  useEffect(() => {
+    setMovieCards(savedMovies);
+  }, [location]);
 
   useEffect(() => {
     if (!isSearchedSave) {
@@ -31,7 +37,7 @@ function MoviesCardList({
       setMovieCards(searchedShortSavedMovies);
     }
   }, [
-    filterStatus, setMovieCards, savedMovies,
+    isSearchedSave, filterStatus, setMovieCards, savedMovies,
     savedMoviesShort, searchedSavedMovies, searchedShortSavedMovies,
   ]);
 

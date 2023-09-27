@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { useMatch } from 'react-router-dom';
+import { useMatch, useLocation } from 'react-router-dom';
 import { SEARCHED_MOVIES } from '../../config';
 
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -22,6 +22,7 @@ function Movies({
   savedMovies,
   savedMoviesShort,
 }) {
+  const location = useLocation();
   // описывает состояние страницы до совершения поиска (впервые на странице)
   const [firstOpen, setFirstOpen] = useState(true);
   // Стейт первого посещения сохраненных фильмов
@@ -69,7 +70,7 @@ function Movies({
 
   useEffect(() => {
     setIsSearchedSave(false);
-  }, []);
+  }, [location]);
 
   // Load more cards
   const handleLoadMore = () => {

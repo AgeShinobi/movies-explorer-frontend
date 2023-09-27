@@ -17,20 +17,20 @@ function MoviesCard({
   const [isLiked, setIsLiked] = useState(false);
 
   // Like Card
-  function handleCardLike() {
+  const handleCardLike = async () => {
     try {
       if (!isLiked) {
-        onSaveMovie(movie);
+        await onSaveMovie(movie);
         setIsLiked(!isLiked);
       } else {
-        onDeleteMovie(movie);
+        await onDeleteMovie(movie);
         setIsLiked(!isLiked);
       }
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
     }
-  }
+  };
   // Delete Saved Card
   function handleDeleteCard() {
     onDeleteMovie(movie);

@@ -10,9 +10,21 @@ export default function useFormWithValidation() {
     const input = e.target;
     const value = input.value;
     const name = input.name;
+    let error = input.validationMessage;
+    if (name === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        error = 'Введите почту в формате: user@google.com';
+      }
+    }
+    const newErrors = { ...errors, [name]: error };
     setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: input.validationMessage });
-    setIsValid(input.closest('form').checkValidity());
+    setErrors(newErrors);
+    if ((newErrors.name === '' || !newErrors.name) && newErrors.email === '' && newErrors.password === '') {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
   };
 
   const resetForm = useCallback(

@@ -26,6 +26,9 @@ function makeRequest(url, method, body, token) {
   return fetch(`${BASE_URL}${url}`, config)
     .then((res) => {
       if (!res.ok) {
+        if (res.status === 401) {
+          return Promise.reject('Неверные email или пароль');
+        }
         return Promise.reject(`Что-то пошло не так: ${res.status}`);
       }
       return res.json();

@@ -5,6 +5,7 @@ import { Link, Navigate } from 'react-router-dom';
 import '../Register/Register.css';
 
 import useFormWithValidation from '../../hooks/useForm';
+import { EMAIL_REGEX } from '../../config';
 
 function Login({ loggedIn, onLogin }) {
   const {
@@ -14,7 +15,7 @@ function Login({ loggedIn, onLogin }) {
   const handleSubmit = useCallback(async (e) => {
     try {
       e.preventDefault();
-      onLogin(values);
+      await onLogin(values);
       resetForm();
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -46,6 +47,7 @@ function Login({ loggedIn, onLogin }) {
           </label>
           <input
             name="email"
+            pattern={EMAIL_REGEX}
             id="email-input"
             onChange={handleChange}
             value={values.email || ''}
