@@ -1,32 +1,42 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-// import Preloader from '../Preloader/Preloader';
+import NotFoundMovies from '../NotFoundMovies/NotFoundMovies';
+
+import { getSavedMovieCard } from '../../utils/SearchMovies';
 import './MoviesCardList.css';
 
-import moviesList from '../../Movies';
+function MoviesCardList({
+  filterStatus,
+  searchedMovies,
+  searchedShortMovies,
+  numCards,
+  onSaveMovie,
+  onDeleteMovie,
+  savedMovies,
+  firstOpen,
+}) {
+  const [movieCards, setMovieCards] = useState(searchedMovies);
 
-function MoviesCardList() {
-  const displayWidth = window.innerWidth; // Get the display width
-
-  let numElements;
-  if (displayWidth <= 680) {
-    numElements = 5; // Take 5 elements for small screens
-  } else if (displayWidth <= 1080) {
-    numElements = 8; // Take 8 elements for medium screens
-  } else {
-    numElements = 12; // Take 12 elements for large screens
-  }
+  useEffect(() => {
+    if (!filterStatus) {
+      setMovieCards(searchedMovies);
+    } else {
+      setMovieCards(searchedShortMovies);
+    }
+  }, [filterStatus, setMovieCards, searchedMovies, searchedShortMovies]);
 
   return (
-    <section className="cards page__cards">
-      {moviesList.slice(0, numElements).map((card) => (
+    <section className={`cards page__cards ${movieCards.length === 0 && 'cards_not-found'}`}>
+      {movieCards.length === 0 && !firstOpen && <NotFoundMovies />}
+      {movieCards.slice(0, numCards).map((card) => (
         <MoviesCard
-          key={card._id}
-          duration={card.duration}
-          image={card.image}
-          name={card.nameRU}
+          movie={card}
+          key={card.movieId}
+          onSaveMovie={onSaveMovie}
+          onDeleteMovie={onDeleteMovie}
+          saved={getSavedMovieCard(savedMovies, card)}
         />
-        // <Preloader/>
       ))}
     </section>
   );

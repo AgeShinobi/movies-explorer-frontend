@@ -1,25 +1,25 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import './Register.css';
-// import CurrentUserContext from '../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../hooks/useForm';
 
-function Register({ loggedIn }) {
-  // const currentUser = React.useContext(CurrentUserContext);
+function Register({ loggedIn, onRegister }) {
   const {
     values, errors, handleChange, resetForm, isValid,
   } = useFormWithValidation();
 
-  function handleSubmit(e) {
-    // Убираем отправку формы
-    e.preventDefault();
-    // TODO: Отправляем данные для регистрации на сервер
-    // Сбрасываем значение полей после регистрации
-    resetForm();
-    // Перенаправляем на роут /movies
-  }
+  const handleSubmit = useCallback(async (e) => {
+    try {
+      e.preventDefault();
+      await onRegister(values);
+      resetForm();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
+  }, [onRegister, values]);
 
   if (loggedIn) {
     return <Navigate to="/movies" replace />;
@@ -52,6 +52,7 @@ function Register({ loggedIn }) {
             type="text"
             minLength="2"
             maxLength="30"
+            pattern="[a-zA-Zа-яА-Я -]{1,}"
             required
           />
           {errors

@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import './Header.css';
 import React, { useState } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 
-function Header() {
+function Header({ loggedIn }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const isMain = useMatch({ path: '/', exact: true });
@@ -19,7 +20,7 @@ function Header() {
         ${isMain ? 'header_color_blue' : 'header_color_gray'}
         ${isMenuOpen ? 'header_menu_open' : ''}`}
     >
-      {isMain && (
+      {!loggedIn ? (
         <>
           <Link
             to="/"
@@ -37,62 +38,60 @@ function Header() {
             </Link>
           </div>
         </>
-      )}
-      {!isMain
-        && (
-          <>
-            {isMenuOpen && <div className="header__shroud" />}
-            <Link
-              to="/"
-              className="header__logo"
-            />
-            <button
-              className="header__burger"
-              type="button"
-              aria-label="меню"
-              onClick={toggleMenu}
-            />
-            <div className="header__wrapper">
-              <div className="header__wrapper-links">
-                {isMenuOpen && (
-                  <Link
-                    to="/"
-                    className="header__link header_link_main"
-                  >
-                    Главная
-                  </Link>
-                )}
+      ) : (
+        <>
+          {isMenuOpen && <div className="header__shroud" />}
+          <Link
+            to="/"
+            className="header__logo"
+          />
+          <button
+            className="header__burger"
+            type="button"
+            aria-label="меню"
+            onClick={toggleMenu}
+          />
+          <div className="header__wrapper">
+            <div className="header__wrapper-links">
+              {isMenuOpen && (
                 <Link
-                  to="/movies"
-                  className={`header__link header_link_films 
-                ${isMovies ? 'header_link_selected' : ''}`}
+                  to="/"
+                  className="header__link header_link_main"
                   onClick={isMenuOpen && toggleMenu}
                 >
-                  Фильмы
+                  Главная
                 </Link>
-                <Link
-                  to="/saved-movies"
-                  className={`header__link header_link_saved
-                ${isSavedMovies ? 'header_link_selected' : ''}`}
-                  onClick={isMenuOpen && toggleMenu}
-                >
-                  Сохранённые фильмы
-                </Link>
-              </div>
-
+              )}
               <Link
-                to="/profile"
-                className="header__wrapper-account"
+                to="/movies"
+                className={`header__link header_link_films ${isMovies ? 'header_link_selected' : ''}`}
                 onClick={isMenuOpen && toggleMenu}
               >
-                <h3 className="header__link header_link_account">
-                  Аккаунт
-                </h3>
-                <div className="header__account-icon" />
+                Фильмы
+              </Link>
+              <Link
+                to="/saved-movies"
+                className={`header__link header_link_saved
+                ${isSavedMovies ? 'header_link_selected' : ''}`}
+                onClick={isMenuOpen && toggleMenu}
+              >
+                Сохранённые фильмы
               </Link>
             </div>
-          </>
-        )}
+
+            <Link
+              to="/profile"
+              className="header__wrapper-account"
+              onClick={isMenuOpen && toggleMenu}
+            >
+              <h3 className="header__link header_link_account">
+                Аккаунт
+              </h3>
+              <div className="header__account-icon" />
+            </Link>
+          </div>
+        </>
+      )}
     </header>
   );
 }

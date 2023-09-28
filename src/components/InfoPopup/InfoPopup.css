@@ -1,0 +1,59 @@
+.info-popup {
+  display: none;
+
+  padding: 20px;
+  box-sizing: border-box;
+  
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+
+  border-radius: 10px;
+  width: 240px;
+  height: 80px;
+
+  font-family: 'Inter', Arial, sans-serif;
+
+  /* border: 5px solid rgba(0,0,0,.35); */
+  animation: slide-up-and-down 5.1s;
+}
+
+.info-popup_type_error {
+  display: flex;
+  background: #c13310;
+  /* border: 5px solid rgba(0,0,0,.35);
+  animation: slide-up-and-down 5s; */
+}
+
+.info-popup_type_ok {
+  display: flex;
+  background: #3ddc84;
+  /* border: 5px solid rgba(0,0,0,.35);
+  animation: slide-up-and-down 5s; */
+}
+
+.info-popup__message {
+  margin: 0;
+  color: black;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+@keyframes slide-up-and-down {
+  from {
+    bottom: -80px;
+  }
+  30% {
+    bottom: 50px;
+  }
+  70% {
+    bottom: 50px;
+  }
+  to {
+    bottom: -80px;
+  }
+}

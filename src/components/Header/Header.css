@@ -91,19 +91,21 @@
   opacity: .8;
 }
 
+
 /* Разнесено, иначе ломается верстка на Main */
 .header__link, .header__link-main {
   cursor: pointer;
   text-decoration: none;
   font-style: normal;
   color: #fff;
-
+  
   transition: .5s;
 }
 
 .header__link:hover, .header__link-main:hover {
   opacity: .8;
 }
+
 
 .header_link_signup {
   /* Button */
@@ -175,7 +177,7 @@
   line-height: 12px;
 }
 
-.header__link_selected {
+.header_link_selected {
   font-weight: 500;
 }
 
@@ -217,24 +219,22 @@
     margin: 0;
   }
 
-  .header__link_main {
+  .header_link_main {
     font-size: 18px;
     line-height: normal;
   }
 
-  .header__link_films {
+  .header_link_films {
     font-size: 18px;
     line-height: normal;  }
 
-  .header__link_saved {
+  .header_link_saved {
     font-size: 18px;
     line-height: normal;  }
 
-  .header__link_account {
-    margin: 0;
-  }
+  
   /* Изменяет стиль выбранного раздела */
-  .header__link_selected {
+  .header_link_selected {
     padding-bottom: 4px;
     border-bottom: 2px solid #fff;
   }
@@ -288,6 +288,11 @@
     z-index: 2;
   }
 
+  .header_link_account {
+    margin: 0;
+    padding: 0;
+  }
+
 }
 
 @media screen and (max-width: 560px) {
@@ -296,20 +301,19 @@
   }
 
   .header__link {
-    padding-bottom: 6px;
     margin: 18px 0 0;
     font-weight: 500;
   }
 
-  .header__link_selected {
+  .header_link_selected {
     padding-bottom: 5px;
   }
 
-  .header__link_signup {
+  .header_link_signup {
     font-size: 10px;
   }
 
-  .header__link_signin {
+  .header_link_signin {
     margin: 0 0 0 14px;
     width: 54px;
     height: 26px;
